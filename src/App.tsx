@@ -16,15 +16,20 @@ function App() {
   const { isLoading: modelLoading, isClassifying, classifyImage } = useImageClassification();
 
   const handleImageCaptured = async (imageDataUrl: string) => {
+    console.log('Image captured in App component');
     setCapturedImage(imageDataUrl);
     setPredictions([]);
     
     try {
+      console.log('Starting classification...');
       const results = await classifyImage(imageDataUrl);
+      console.log('Classification results:', results);
       setPredictions(results);
     } catch (error) {
       console.error('Classification failed:', error);
       setPredictions([]);
+      // Show user-friendly error message
+      alert('Failed to analyze the image. Please try again.');
     }
   };
 

@@ -18,12 +18,23 @@ export const useCamera = () => {
         video: {
           width: { ideal: 1280 },
           height: { ideal: 720 },
-          facingMode: 'environment'
+          facingMode: { ideal: 'environment' }
         }
       });
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        
+        // Wait for video to be ready
+        await new Promise<void>((resolve) => {
+          const video = videoRef.current!;
+          const onLoadedMetadata = () => {
+            video.removeEventListener('loadedmetadata', onLoadedMetadata);
+            resolve();
+          };
+          video.addEventListener('loadedmetadata', onLoadedMetadata);
+        });
+        
         await videoRef.current.play();
       }
 
@@ -33,10 +44,11 @@ export const useCamera = () => {
         error: null
       });
     } catch (error) {
+      console.error('Camera error:', error);
       setCameraState({
         isActive: false,
         stream: null,
-        error: 'Failed to access camera. Please check permissions.'
+        error: error instanceof Error ? error.message : 'Failed to access camera. Please check permissions and try again.'
       });
     }
   }, []);
@@ -60,8 +72,15 @@ export const useCamera = () => {
   const captureImage = useCallback((): string | null => {
     if (!videoRef.current || !cameraState.isActive) return null;
 
-    const canvas = document.createElement('canvas');
     const video = videoRef.current;
+    
+    // Check if video is ready
+    if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+      console.warn('Video not ready for capture');
+      return null;
+    }
+
+    const canvas = document.createElement('canvas');
     
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -69,8 +88,16 @@ export const useCamera = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
     
+    // Draw the video frame to canvas
     ctx.drawImage(video, 0, 0);
-    return canvas.toDataURL('image/jpeg', 0.8);
+    
+    // Convert to data URL with high quality
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    
+    // Clean up
+    canvas.remove();
+    
+    return dataUrl;
   }, [cameraState.isActive]);
 
   useEffect(() => {

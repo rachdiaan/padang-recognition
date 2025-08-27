@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, CameraOff, Aperture as Capture } from 'lucide-react';
+import { Camera, CameraOff, Aperture as Capture, AlertTriangle } from 'lucide-react';
 import { useCamera } from '../hooks/useCamera';
 
 interface CameraCaptureProps {
@@ -12,8 +12,17 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
   const handleCapture = () => {
     const imageData = captureImage();
     if (imageData) {
+      console.log('Image captured successfully');
       onImageCaptured(imageData);
+    } else {
+      console.error('Failed to capture image');
+      alert('Failed to capture image. Please make sure the camera is active and try again.');
     }
+  };
+
+  const handleStartCamera = async () => {
+    console.log('Starting camera...');
+    await startCamera();
   };
 
   return (
@@ -37,11 +46,22 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
               Enable your camera to start identifying delicious Padang dishes with AI-powered recognition
             </p>
             <button
-              onClick={startCamera}
+              onClick={handleStartCamera}
               className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25"
             >
               🎥 Start Camera
             </button>
+            
+            {/* Camera permissions info */}
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-2xl max-w-md mx-auto">
+              <div className="flex items-center space-x-2 mb-2">
+                <Camera className="text-blue-500" size={20} />
+                <span className="text-blue-700 font-medium">Camera Permissions Required</span>
+              </div>
+              <p className="text-blue-600 text-sm">
+                This app needs camera access to capture photos of your food. Please allow camera permissions when prompted.
+              </p>
+            </div>
           </div>
         ) : (
           <div className="space-y-6">
@@ -52,10 +72,16 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 autoPlay
                 playsInline
                 muted
+                style={{ transform: 'scaleX(-1)' }} // Mirror the video for better UX
               />
               <div className="absolute inset-0 border-4 border-dashed border-white/40 rounded-2xl pointer-events-none"></div>
               <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm font-medium">
                 🔴 Live Camera
+              </div>
+              
+              {/* Camera guidelines */}
+              <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm">
+                <p className="text-center">Position your Padang dish in the center of the frame</p>
               </div>
             </div>
             
@@ -82,7 +108,17 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
         {cameraState.error && (
           <div className="mt-6 p-6 bg-red-50 border border-red-200 rounded-2xl">
             <div className="flex items-center space-x-3">
-              <div className="text-red-500">⚠️</div>
+                <p className="text-red-700 font-medium">Camera Error</p>
+                <p className="text-red-600 text-sm mt-1">{cameraState.error}</p>
+                <div className="mt-3 text-red-600 text-sm">
+                  <p className="font-medium">Troubleshooting tips:</p>
+                  <ul className="list-disc list-inside mt-1 space-y-1">
+                    <li>Make sure you allow camera permissions</li>
+                    <li>Check if another app is using the camera</li>
+                    <li>Try refreshing the page</li>
+                    <li>Ensure you're using HTTPS (required for camera access)</li>
+                  </ul>
+                </div>
               <p className="text-red-700 font-medium">{cameraState.error}</p>
             </div>
           </div>
