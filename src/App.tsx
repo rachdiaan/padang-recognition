@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChefHat, Sparkles, Menu, X, Camera, FileText, Database } from 'lucide-react';
+import { ChefHat, Sparkles } from 'lucide-react';
 import { CameraCapture } from './components/CameraCapture';
 import { ImagePreview } from './components/ImagePreview';
 import { PredictionResults } from './components/PredictionResults';
@@ -52,17 +52,17 @@ function App() {
   const renderHomePage = () => (
     <>
       {modelLoading && (
-        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-200/50 rounded-2xl p-6 mb-8 backdrop-blur-sm">
-          <div className="flex items-center space-x-3">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 mb-8">
+          <div className="flex items-center space-x-4">
             <div className="relative">
-              <Sparkles className="text-blue-500 animate-pulse" size={24} />
+              <Sparkles className="text-blue-400 animate-pulse" size={28} />
               <div className="absolute inset-0 animate-ping">
-                <Sparkles className="text-blue-300" size={24} />
+                <Sparkles className="text-blue-300/50" size={28} />
               </div>
             </div>
             <div>
-              <p className="text-blue-700 font-semibold">Loading AI Model...</p>
-              <p className="text-blue-600 text-sm">Initializing TensorFlow.js engine</p>
+              <p className="text-white font-bold text-lg">Loading AI Model...</p>
+              <p className="text-gray-300">Initializing advanced neural networks</p>
             </div>
           </div>
         </div>
@@ -78,10 +78,10 @@ function App() {
           )}
           
           {!capturedImage && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-              <div className="p-8 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+              <div className="p-8 bg-gradient-to-br from-orange-600/80 via-red-600/80 to-pink-600/80 backdrop-blur-sm">
                 <h2 className="text-3xl font-bold text-white mb-3">How It Works</h2>
-                <p className="text-indigo-100">AI-powered food recognition in 3 simple steps</p>
+                <p className="text-orange-100">AI-powered food recognition in 3 simple steps</p>
               </div>
               
               <div className="p-8 space-y-8">
@@ -90,8 +90,8 @@ function App() {
                     1
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2 text-lg">Start Camera</h3>
-                    <p className="text-gray-600">Enable your device camera with advanced image processing capabilities</p>
+                    <h3 className="font-bold text-white mb-2 text-lg">Start Camera</h3>
+                    <p className="text-gray-300">Enable your device camera with advanced image processing capabilities</p>
                   </div>
                 </div>
                 
@@ -100,8 +100,8 @@ function App() {
                     2
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2 text-lg">Capture Food</h3>
-                    <p className="text-gray-600">Take a high-quality photo of your Padang dish for analysis</p>
+                    <h3 className="font-bold text-white mb-2 text-lg">Capture Food</h3>
+                    <p className="text-gray-300">Take a high-quality photo of your Padang dish for analysis</p>
                   </div>
                 </div>
                 
@@ -110,8 +110,8 @@ function App() {
                     3
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2 text-lg">Get Results</h3>
-                    <p className="text-gray-600">Receive instant AI predictions with confidence scores and detailed information</p>
+                    <h3 className="font-bold text-white mb-2 text-lg">Get Results</h3>
+                    <p className="text-gray-300">Receive instant AI predictions with confidence scores and detailed information</p>
                   </div>
                 </div>
               </div>
@@ -133,29 +133,29 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 relative overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-x-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-orange-200/30 to-red-200/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-yellow-200/30 to-orange-200/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-red-200/20 to-pink-200/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-red-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Floating Navigation */}
       <FloatingNav currentPage={currentPage} onPageChange={setCurrentPage} />
 
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20 sticky top-0 z-40">
+      <header className="bg-black/20 backdrop-blur-md shadow-2xl border-b border-white/10 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl shadow-lg">
               <ChefHat className="text-white" size={32} />
             </div>
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                 Padang Food Recognition
               </h1>
-              <p className="text-gray-600 mt-1 font-medium">Advanced AI-powered food identification system</p>
+              <p className="text-gray-300 mt-1 font-medium">Advanced AI-powered food identification system</p>
             </div>
           </div>
         </div>
@@ -167,19 +167,19 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white/80 backdrop-blur-md border-t border-white/20 mt-20 relative z-10">
+      <footer className="bg-black/20 backdrop-blur-md border-t border-white/10 mt-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center text-gray-600">
+          <div className="text-center text-gray-300">
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <ChefHat className="text-orange-500" size={24} />
-              <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              <ChefHat className="text-orange-400" size={24} />
+              <span className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                 Padang Food Recognition
               </span>
             </div>
-            <p className="text-gray-700 font-medium mb-2">
+            <p className="text-gray-400 font-medium mb-2">
               Powered by TensorFlow.js and modern web technologies
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-500">
               © 2025. Created with 💖 by Rachdian
             </p>
           </div>

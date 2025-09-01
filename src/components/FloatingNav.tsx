@@ -22,7 +22,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentPage, onPageCha
       {/* Mobile Menu Button */}
       <button
         onClick={toggleNav}
-        className="fixed top-6 right-6 z-50 lg:hidden bg-gradient-to-br from-orange-500 to-red-500 text-white p-3 rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-110"
+        className="fixed top-6 right-6 z-50 lg:hidden bg-gradient-to-br from-orange-500 to-red-500 text-white p-3 rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-110 backdrop-blur-sm"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -44,7 +44,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentPage, onPageCha
           : 'top-24 right-6 opacity-0 translate-x-full lg:opacity-100 lg:translate-x-0'
         }
       `}>
-        <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 p-2">
+        <div className="bg-black/20 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 p-2">
           <div className="flex flex-col space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -61,12 +61,12 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentPage, onPageCha
                     group relative flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 transform hover:scale-105
                     ${isActive 
                       ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg shadow-orange-500/25' 
-                      : 'text-gray-700 hover:bg-gray-100/80'
+                      : 'text-gray-300 hover:bg-white/10'
                     }
                   `}
                 >
-                  <Icon size={20} className={isActive ? 'text-white' : 'text-gray-600 group-hover:text-orange-500'} />
-                  <span className={`font-medium whitespace-nowrap ${isActive ? 'text-white' : 'text-gray-700'}`}>
+                  <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-orange-400'} />
+                  <span className={`font-medium whitespace-nowrap ${isActive ? 'text-white' : 'text-gray-300'}`}>
                     {item.label}
                   </span>
                   
