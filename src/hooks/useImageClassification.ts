@@ -13,6 +13,7 @@ export const useImageClassification = () => {
       try {
         console.log('Initializing TensorFlow.js...');
         await tf.ready();
+        await tf.setBackend('webgl');
         console.log('TensorFlow.js backend:', tf.getBackend());
         
         // Create a simple CNN model for food classification
