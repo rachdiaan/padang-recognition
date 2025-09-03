@@ -129,3 +129,4 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
       </div>
     </div>
   );
+};
