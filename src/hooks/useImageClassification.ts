@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
 import { padangFoodDataset } from '../data/padangFoodDataset';
 import { PredictionResult } from '../types/food';
 
@@ -12,6 +13,7 @@ export const useImageClassification = () => {
     const loadModel = async () => {
       try {
         console.log('Initializing TensorFlow.js...');
+        await tf.setBackend('webgl');
         await tf.ready();
         console.log('TensorFlow.js backend:', tf.getBackend());
         
