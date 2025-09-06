@@ -25,22 +25,19 @@ export const useImageClassification = () => {
               inputShape: [224, 224, 3],
               filters: 32,
               kernelSize: 3,
-              activation: 'relu',
-              dataFormat: 'channelsLast'
+              activation: 'relu'
             }),
             tf.layers.maxPooling2d({ poolSize: 2 }),
             tf.layers.conv2d({ 
               filters: 64, 
               kernelSize: 3, 
-              activation: 'relu',
-              dataFormat: 'channelsLast'
+              activation: 'relu'
             }),
             tf.layers.maxPooling2d({ poolSize: 2 }),
             tf.layers.conv2d({ 
               filters: 128, 
               kernelSize: 3, 
-              activation: 'relu',
-              dataFormat: 'channelsLast'
+              activation: 'relu'
             }),
             tf.layers.globalAveragePooling2d(),
             tf.layers.dense({ units: 128, activation: 'relu' }),
