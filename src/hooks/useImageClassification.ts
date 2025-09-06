@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
+import { layers } from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import { padangFoodDataset } from '../data/padangFoodDataset';
 import { PredictionResult } from '../types/food';
@@ -21,31 +22,31 @@ export const useImageClassification = () => {
         console.log('Creating food classification model...');
         const model = tf.sequential({
           layers: [
-            tf.layers.conv2d({
+            layers.conv2d({
               inputShape: [224, 224, 3],
               filters: 32,
               kernelSize: 3,
               activation: 'relu',
               dataFormat: 'channelsLast',
             }),
-            tf.layers.maxPooling2d({ poolSize: 2 }),
-            tf.layers.conv2d({ 
+            layers.maxPooling2d({ poolSize: 2 }),
+            layers.conv2d({ 
               filters: 64, 
               kernelSize: 3, 
               activation: 'relu',
               dataFormat: 'channelsLast',
             }),
-            tf.layers.maxPooling2d({ poolSize: 2 }),
-            tf.layers.conv2d({ 
+            layers.maxPooling2d({ poolSize: 2 }),
+            layers.conv2d({ 
               filters: 128, 
               kernelSize: 3, 
               activation: 'relu',
               dataFormat: 'channelsLast',
             }),
-            tf.layers.globalAveragePooling2d(),
-            tf.layers.dense({ units: 128, activation: 'relu' }),
-            tf.layers.dropout({ rate: 0.5 }),
-            tf.layers.dense({ units: padangFoodDataset.length, activation: 'softmax' })
+            layers.globalAveragePooling2d(),
+            layers.dense({ units: 128, activation: 'relu' }),
+            layers.dropout({ rate: 0.5 }),
+            layers.dense({ units: padangFoodDataset.length, activation: 'softmax' })
           ]
         });
 
@@ -64,9 +65,9 @@ export const useImageClassification = () => {
         try {
           const simpleModel = tf.sequential({
             layers: [
-              tf.layers.flatten({ inputShape: [224, 224, 3] }),
-              tf.layers.dense({ units: 64, activation: 'relu' }),
-              tf.layers.dense({ units: padangFoodDataset.length, activation: 'softmax' })
+              layers.flatten({ inputShape: [224, 224, 3] }),
+              layers.dense({ units: 64, activation: 'relu' }),
+              layers.dense({ units: padangFoodDataset.length, activation: 'softmax' })
             ]
           });
           setModel(simpleModel);
