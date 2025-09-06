@@ -27,7 +27,6 @@ export const useImageClassification = () => {
               kernelSize: 3,
               activation: 'relu',
               dataFormat: 'channelsLast',
-              dataFormat: 'channelsLast',
             }),
             tf.layers.maxPooling2d({ poolSize: 2 }),
             tf.layers.conv2d({ 
@@ -37,16 +36,6 @@ export const useImageClassification = () => {
               dataFormat: 'channelsLast',
             }),
             tf.layers.maxPooling2d({ poolSize: 2 }),
-            tf.layers.conv2d({ 
-              filters: 128, 
-              kernelSize: 3, 
-            tf.layers.conv2d({ 
-              filters: 64, 
-              kernelSize: 3, 
-              activation: 'relu',
-              dataFormat: 'channelsLast',
-            }),
-              dataFormat: 'channelsLast',
             tf.layers.conv2d({ 
               filters: 128, 
               kernelSize: 3, 
