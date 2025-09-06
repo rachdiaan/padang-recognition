@@ -13,9 +13,23 @@ export const useImageClassification = () => {
     const loadModel = async () => {
       try {
         console.log('Initializing TensorFlow.js...');
-        await tf.setBackend('webgl');
+        
+        // Try to set webgl backend with fallback to cpu
+        try {
+          await tf.setBackend('webgl');
+          console.log('WebGL backend set successfully');
+        } catch (webglError) {
+          console.warn('WebGL backend failed, falling back to CPU:', webglError);
+          await tf.setBackend('cpu');
+        }
+        
         await tf.ready();
         console.log('TensorFlow.js backend:', tf.getBackend());
+        
+        // Verify backend is properly initialized
+        if (!tf.getBackend()) {
+          throw new Error('TensorFlow.js backend not properly initialized');
+        }
         
         // Create a simple CNN model for food classification
         console.log('Creating food classification model...');
