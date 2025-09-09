@@ -60,6 +60,9 @@ export const useImageClassification = () => {
           ]
         });
 
+        // Build the model to initialize internal graph and layer properties
+        model.build();
+
         // Compile the model
         model.compile({
           optimizer: tf.train.adam(0.001),
