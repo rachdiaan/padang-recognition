@@ -4,6 +4,7 @@ import { CameraState } from '../types/food';
 export const useCamera = () => {
   const [cameraState, setCameraState] = useState<CameraState>({
     isActive: false,
+    isReadyForCapture: false,
     stream: null,
     error: null
   });
@@ -63,10 +64,36 @@ export const useCamera = () => {
         console.log('Starting video playback...');
         await videoRef.current.play();
         console.log('Video is now playing');
+        
+        // Wait for video to be ready for capture
+        await new Promise<void>((resolve) => {
+          const video = videoRef.current!;
+          
+          const checkReadiness = () => {
+            if (video.readyState >= video.HAVE_ENOUGH_DATA) {
+              console.log('Video is ready for capture');
+              resolve();
+            } else {
+              // Check again in 100ms
+              setTimeout(checkReadiness, 100);
+            }
+          };
+          
+          // Also listen for canplaythrough event as backup
+          const onCanPlayThrough = () => {
+            console.log('Video canplaythrough event fired');
+            video.removeEventListener('canplaythrough', onCanPlayThrough);
+            resolve();
+          };
+          
+          video.addEventListener('canplaythrough', onCanPlayThrough);
+          checkReadiness();
+        });
       }
 
       setCameraState({
         isActive: true,
+        isReadyForCapture: true,
         stream,
         error: null
       });
@@ -92,6 +119,7 @@ export const useCamera = () => {
       
       setCameraState({
         isActive: false,
+        isReadyForCapture: false,
         stream: null,
         error: errorMessage
       });
@@ -114,6 +142,7 @@ export const useCamera = () => {
 
     setCameraState({
       isActive: false,
+      isReadyForCapture: false,
       stream: null,
       error: null
     });

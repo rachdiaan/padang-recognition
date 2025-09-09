@@ -25,6 +25,7 @@ export interface PredictionResult {
 
 export interface CameraState {
   isActive: boolean;
+  isReadyForCapture: boolean;
   stream: MediaStream | null;
   error: string | null;
 }

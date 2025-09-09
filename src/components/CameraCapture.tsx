@@ -89,10 +89,15 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             <div className="flex justify-center space-x-6">
               <button
                 onClick={handleCapture}
-                className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-green-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-green-500/25 flex items-center space-x-3"
+                disabled={!cameraState.isReadyForCapture}
+                className={`px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform shadow-2xl flex items-center space-x-3 ${
+                  cameraState.isReadyForCapture
+                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 hover:scale-105 hover:shadow-green-500/25'
+                    : 'bg-gray-500 text-gray-300 cursor-not-allowed opacity-50'
+                }`}
               >
                 <Capture size={24} />
-                <span>📸 Capture Photo</span>
+                <span>{cameraState.isReadyForCapture ? '📸 Capture Photo' : '⏳ Preparing...'}</span>
               </button>
               
               <button
