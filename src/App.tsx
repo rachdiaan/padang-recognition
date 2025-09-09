@@ -52,17 +52,17 @@ function App() {
   const renderHomePage = () => (
     <>
       {modelLoading && (
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 mb-8">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 mb-8 animate-pulse">
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <Sparkles className="text-blue-400 animate-pulse" size={28} />
+              <Sparkles className="text-blue-400 animate-spin" size={28} />
               <div className="absolute inset-0 animate-ping">
                 <Sparkles className="text-blue-300/50" size={28} />
               </div>
             </div>
             <div>
-              <p className="text-white font-bold text-lg">Loading AI Model...</p>
-              <p className="text-gray-300">Initializing advanced neural networks</p>
+              <p className="text-white font-bold text-lg">🚀 Initializing AI System...</p>
+              <p className="text-gray-300">Loading advanced computer vision algorithms</p>
             </div>
           </div>
         </div>

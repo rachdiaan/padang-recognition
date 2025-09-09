@@ -47,9 +47,9 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             </p>
             <button
               onClick={handleStartCamera}
-              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25 flex items-center space-x-3 mx-auto"
+              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25 flex items-center space-x-3 mx-auto group"
             >
-              <Zap size={24} />
+              <Zap size={24} className="group-hover:animate-pulse" />
               <span>🎥 Start Camera</span>
             </button>
             

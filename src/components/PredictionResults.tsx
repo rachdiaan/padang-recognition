@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, Clock, MapPin, Flame, Brain, Target } from 'lucide-react';
+import { Trophy, Clock, MapPin, Flame, Brain, Target, Sparkles, Zap } from 'lucide-react';
 import { PredictionResult } from '../types/food';
 
 interface PredictionResultsProps {
@@ -10,17 +10,24 @@ interface PredictionResultsProps {
 export const PredictionResults: React.FC<PredictionResultsProps> = ({ predictions, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
-        <div className="flex items-center justify-center space-x-4">
+      <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 animate-pulse">
+        <div className="flex flex-col items-center justify-center space-y-4">
           <div className="relative">
-            <Brain className="text-orange-400 animate-pulse" size={32} />
-            <div className="absolute inset-0 animate-ping">
-              <Brain className="text-orange-300/50" size={32} />
+            <div className="relative">
+              <Brain className="text-orange-400 animate-spin" size={48} />
+              <div className="absolute inset-0 animate-ping">
+                <Sparkles className="text-orange-300/50" size={48} />
+              </div>
             </div>
           </div>
-          <div>
-            <p className="text-white font-bold text-lg">Analyzing image...</p>
-            <p className="text-gray-300">Processing with neural networks</p>
+          <div className="text-center">
+            <p className="text-white font-bold text-xl mb-2">🔍 Analyzing Image...</p>
+            <p className="text-orange-300 font-medium">Advanced computer vision processing</p>
+            <div className="mt-4 flex items-center justify-center space-x-2">
+              <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce delay-100"></div>
+              <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce delay-200"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -30,9 +37,27 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
   if (predictions.length === 0) {
     return (
       <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center">
-        <Target className="mx-auto text-gray-400 mb-4" size={48} />
-        <p className="text-gray-300 text-lg">Take a photo to identify Padang food dishes</p>
-        <p className="text-gray-400 text-sm mt-2">AI analysis will begin automatically after capture</p>
+        <div className="relative mb-6">
+          <Target className="mx-auto text-gray-400" size={64} />
+          <div className="absolute inset-0 animate-pulse">
+            <Target className="mx-auto text-gray-500/30" size={64} />
+          </div>
+        </div>
+        <h3 className="text-white font-bold text-xl mb-3">🎯 Ready for Analysis</h3>
+        <p className="text-gray-300 text-lg mb-2">Capture a photo to identify Padang dishes</p>
+        <p className="text-gray-400 text-sm">Advanced image analysis will begin automatically</p>
+        
+        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-400/20 rounded-2xl backdrop-blur-sm">
+          <div className="flex items-center justify-center space-x-2 mb-2">
+            <Zap className="text-blue-400" size={20} />
+            <span className="text-blue-300 font-medium">Pro Tips</span>
+          </div>
+          <ul className="text-blue-200 text-sm space-y-1">
+            <li>• Use good lighting for best results</li>
+            <li>• Center the dish in the frame</li>
+            <li>• Avoid shadows and reflections</li>
+          </ul>
+        </div>
       </div>
     );
   }
