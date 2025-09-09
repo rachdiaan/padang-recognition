@@ -61,9 +61,6 @@ export const useImageClassification = () => {
         });
 
         // Compile the model
-        // Explicitly build the model to initialize layer properties
-        model.build([null, 224, 224, 3]);
-        
         model.compile({
           optimizer: tf.train.adam(0.001),
           loss: 'categoricalCrossentropy',
