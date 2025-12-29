@@ -222,11 +222,22 @@ export const useImageClassification = () => {
     try {
       console.log('Starting advanced image analysis...');
       
+      // Validate input
+      if (!imageDataUrl || !imageDataUrl.startsWith('data:image/')) {
+        throw new Error('Invalid image data provided');
+      }
+      
       // Create image and canvas for analysis
       const img = new Image();
       img.crossOrigin = 'anonymous';
       
       await new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          clearTimeout(timeout);
+          reject(new Error('Image loading timeout'));
+        }, 10000);
+        
+          clearTimeout(timeout);
         img.onload = () => resolve();
         img.onerror = () => reject(new Error('Failed to load image'));
         img.src = imageDataUrl;

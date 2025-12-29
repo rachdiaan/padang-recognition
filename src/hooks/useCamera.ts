@@ -153,8 +153,8 @@ export const useCamera = () => {
   const captureImage = useCallback((): string | null => {
     console.log('Attempting to capture image...');
     
-    if (!videoRef.current || !cameraState.isActive) {
-      console.error('Video not available or camera not active');
+    if (!videoRef.current || !cameraState.isActive || !cameraState.isReadyForCapture) {
+      console.error('Video not available, camera not active, or not ready for capture');
       return null;
     }
 
@@ -198,7 +198,7 @@ export const useCamera = () => {
       console.error('Error capturing image:', error);
       return null;
     }
-  }, [cameraState.isActive]);
+  }, [cameraState.isActive, cameraState.isReadyForCapture]);
 
   // Cleanup on unmount
   useEffect(() => {

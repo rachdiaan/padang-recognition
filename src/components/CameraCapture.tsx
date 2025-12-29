@@ -10,13 +10,19 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
   const { cameraState, videoRef, startCamera, stopCamera, captureImage } = useCamera();
 
   const handleCapture = () => {
+    if (!cameraState.isReadyForCapture) {
+      console.warn('Camera not ready for capture');
+      return;
+    }
+    
     const imageData = captureImage();
     if (imageData) {
       console.log('Image captured successfully');
       onImageCaptured(imageData);
     } else {
       console.error('Failed to capture image');
-      alert('Failed to capture image. Please make sure the camera is active and try again.');
+      // Show user-friendly error without alert
+      console.warn('Image capture failed - camera may not be ready');
     }
   };
 

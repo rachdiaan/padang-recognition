@@ -17,6 +17,14 @@ function App() {
 
   const handleImageCaptured = async (imageDataUrl: string) => {
     console.log('Image captured in App component');
+    
+    // Validate image data
+    if (!imageDataUrl || !imageDataUrl.startsWith('data:image/')) {
+      console.error('Invalid image data received');
+      alert('Invalid image data. Please try capturing again.');
+      return;
+    }
+    
     setCapturedImage(imageDataUrl);
     setPredictions([]);
     
@@ -29,7 +37,7 @@ function App() {
       console.error('Classification failed:', error);
       setPredictions([]);
       // Show user-friendly error message
-      alert('Failed to analyze the image. Please try again.');
+      console.warn('Classification failed, but continuing with empty results');
     }
   };
 

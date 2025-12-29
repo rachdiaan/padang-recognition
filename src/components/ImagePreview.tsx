@@ -28,6 +28,10 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({ imageDataUrl, onClos
             src={imageDataUrl}
             alt="Captured food"
             className="w-full h-80 object-cover"
+            onError={(e) => {
+              console.error('Failed to display captured image');
+              e.currentTarget.style.display = 'none';
+            }}
           />
         </div>
         <div className="mt-6 p-4 bg-green-500/10 backdrop-blur-sm rounded-2xl border border-green-400/20">

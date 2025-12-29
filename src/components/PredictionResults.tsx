@@ -13,11 +13,9 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
       <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 animate-pulse">
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="relative">
-            <div className="relative">
-              <Brain className="text-orange-400 animate-spin" size={48} />
-              <div className="absolute inset-0 animate-ping">
-                <Sparkles className="text-orange-300/50" size={48} />
-              </div>
+            <Brain className="text-orange-400 animate-spin" size={48} />
+            <div className="absolute inset-0 animate-ping">
+              <Sparkles className="text-orange-300/50" size={48} />
             </div>
           </div>
           <div className="text-center">
