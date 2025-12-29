@@ -95,52 +95,23 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             <p className="text-gray-300 mb-8 max-w-md mx-auto">
               Enable your camera to start identifying delicious Padang dishes with AI-powered recognition
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <button
-                onClick={handleStartCamera}
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25 flex items-center space-x-3 group"
-              >
-                <Camera size={24} className="group-hover:animate-pulse" />
-                <span>📷 Start Camera</span>
-              </button>
-              
-              <div className="text-gray-400 font-bold">OR</div>
-              
-              <label className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-blue-500/25 flex items-center space-x-3 cursor-pointer group">
-                <Upload size={24} className="group-hover:animate-bounce" />
-                <span>📁 Upload Image</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  aria-label="Upload image file"
-                />
-              </label>
-            </div>
+            <button
+              onClick={handleStartCamera}
+              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25 flex items-center space-x-3 mx-auto group"
+            >
+              <Zap size={24} className="group-hover:animate-pulse" />
+              <span>🎥 Start Camera</span>
+            </button>
             
             {/* Camera permissions info */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-              <div className="p-4 bg-blue-500/10 border border-blue-400/20 rounded-2xl backdrop-blur-sm">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Camera className="text-blue-400" size={20} />
-                  <span className="text-blue-300 font-medium">Camera Access</span>
-                </div>
-                <p className="text-blue-200 text-sm">
-                  Camera permissions required for live photo capture. Click "Allow" when prompted.
-                </p>
+            <div className="mt-6 p-4 bg-blue-500/10 border border-blue-400/20 rounded-2xl max-w-md mx-auto backdrop-blur-sm">
+              <div className="flex items-center space-x-2 mb-2">
+                <Camera className="text-blue-400" size={20} />
+                <span className="text-blue-300 font-medium">Camera Permissions Required</span>
               </div>
-              
-              <div className="p-4 bg-purple-500/10 border border-purple-400/20 rounded-2xl backdrop-blur-sm">
-                <div className="flex items-center space-x-2 mb-2">
-                  <FolderOpen className="text-purple-400" size={20} />
-                  <span className="text-purple-300 font-medium">File Upload</span>
-                </div>
-                <p className="text-purple-200 text-sm">
-                  Upload images from your device storage. Supports JPG, PNG, and other image formats.
-                </p>
-              </div>
+              <p className="text-blue-200 text-sm">
+                This app needs camera access to capture photos of your food. Please allow camera permissions when prompted.
+              </p>
             </div>
           </div>
         ) : (
@@ -186,6 +157,18 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 <CameraOff size={24} />
                 <span>⏹️ Stop Camera</span>
               </button>
+              
+              <label className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center space-x-3 cursor-pointer">
+                <Upload size={24} />
+                <span>📁 Upload Instead</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  aria-label="Upload image file"
+                />
+              </label>
             </div>
           </div>
         )}

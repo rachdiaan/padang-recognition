@@ -98,8 +98,8 @@ function App() {
                     1
                   </div>
                   <div>
-                    <h3 className="font-bold text-white mb-2 text-lg">Start Camera</h3>
-                    <p className="text-gray-300">Enable your device camera with advanced image processing capabilities</p>
+                    <h3 className="font-bold text-white mb-2 text-lg">Choose Input Method</h3>
+                    <p className="text-gray-300">Start camera for live capture or upload an image from your device storage</p>
                   </div>
                 </div>
                 
@@ -108,8 +108,8 @@ function App() {
                     2
                   </div>
                   <div>
-                    <h3 className="font-bold text-white mb-2 text-lg">Capture Food</h3>
-                    <p className="text-gray-300">Take a high-quality photo of your Padang dish for analysis</p>
+                    <h3 className="font-bold text-white mb-2 text-lg">Capture or Upload</h3>
+                    <p className="text-gray-300">Take a photo with camera or select an existing image from your gallery</p>
                   </div>
                 </div>
                 

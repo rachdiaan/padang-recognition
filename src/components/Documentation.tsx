@@ -239,7 +239,11 @@ export const Documentation: React.FC = () => {
               <ul className="space-y-3">
                 <li className="flex items-center space-x-3">
                   <CheckCircle className="text-green-400" size={20} />
-                  <span className="text-gray-300">Camera access permission</span>
+                  <span className="text-gray-300">Camera access permission (for live capture)</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <CheckCircle className="text-green-400" size={20} />
+                  <span className="text-gray-300">File system access (for image upload)</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <CheckCircle className="text-green-400" size={20} />
