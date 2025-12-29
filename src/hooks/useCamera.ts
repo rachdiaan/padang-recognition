@@ -21,29 +21,83 @@ export const useCamera = () => {
         throw new Error('Camera API not supported in this browser');
       }
 
-      const constraints = {
+      // Try different constraint configurations for better compatibility
+      const constraints = [
+        // High quality for desktop
+        {
+          video: {
+            width: { ideal: 1280, max: 1920 },
+            height: { ideal: 720, max: 1080 },
+            facingMode: { ideal: 'environment' },
+            frameRate: { ideal: 30 }
+          },
+          audio: false
+        },
+        // Medium quality fallback
+        {
+          video: {
+            width: { ideal: 640, max: 1280 },
+            height: { ideal: 480, max: 720 },
+            facingMode: 'environment',
+            frameRate: { ideal: 24 }
+          },
+          audio: false
+        },
+        // Basic fallback for older devices
+        {
+          video: {
+            width: 640,
+            height: 480,
+            facingMode: 'environment'
+          },
+          audio: false
+        },
+        // Minimal fallback
         video: {
-          width: { ideal: 1280, max: 1920 },
-          height: { ideal: 720, max: 1080 },
-          facingMode: { ideal: 'environment' },
-          frameRate: { ideal: 30 }
+          facingMode: 'environment'
         },
         audio: false
-      };
+      ];
 
-      console.log('Getting user media with constraints:', constraints);
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      let stream: MediaStream | null = null;
+      let lastError: Error | null = null;
+
+      // Try each constraint configuration until one works
+      for (let i = 0; i < constraints.length; i++) {
+        try {
+          console.log(`Trying camera constraints ${i + 1}/${constraints.length}:`, constraints[i]);
+          stream = await navigator.mediaDevices.getUserMedia(constraints[i]);
+          console.log('Camera stream obtained successfully with constraints', i + 1);
+          break;
+        } catch (error) {
+          console.warn(`Camera constraints ${i + 1} failed:`, error);
+          lastError = error as Error;
+          if (i === constraints.length - 1) {
+            throw lastError;
+          }
+        }
+      }
+
+      if (!stream) {
+        throw new Error('Failed to obtain camera stream with any configuration');
+      }
+
       console.log('Camera stream obtained successfully');
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         
-        // Wait for video metadata to load
+        // Wait for video metadata to load with timeout
         await new Promise<void>((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Error('Video metadata loading timeout'));
+          }, 10000);
+
           const video = videoRef.current!;
           
           const onLoadedMetadata = () => {
             console.log('Video metadata loaded');
+            clearTimeout(timeout);
             video.removeEventListener('loadedmetadata', onLoadedMetadata);
             video.removeEventListener('error', onError);
             resolve();
@@ -51,6 +105,7 @@ export const useCamera = () => {
           
           const onError = (e: Event) => {
             console.error('Video error:', e);
+            clearTimeout(timeout);
             video.removeEventListener('loadedmetadata', onLoadedMetadata);
             video.removeEventListener('error', onError);
             reject(new Error('Failed to load video'));
@@ -58,20 +113,38 @@ export const useCamera = () => {
           
           video.addEventListener('loadedmetadata', onLoadedMetadata);
           video.addEventListener('error', onError);
+
+          // Also check if metadata is already loaded
+          if (video.readyState >= video.HAVE_METADATA) {
+            clearTimeout(timeout);
+            resolve();
+          }
         });
         
         // Start playing the video
         console.log('Starting video playback...');
-        await videoRef.current.play();
+        try {
+          await videoRef.current.play();
+        } catch (playError) {
+          console.warn('Video play failed, trying with muted:', playError);
+          videoRef.current.muted = true;
+          await videoRef.current.play();
+        }
         console.log('Video is now playing');
         
-        // Wait for video to be ready for capture
+        // Wait for video to be ready for capture with timeout
         await new Promise<void>((resolve) => {
+          const timeout = setTimeout(() => {
+            console.log('Video readiness timeout, proceeding anyway');
+            resolve();
+          }, 5000);
+
           const video = videoRef.current!;
           
           const checkReadiness = () => {
             if (video.readyState >= video.HAVE_ENOUGH_DATA) {
               console.log('Video is ready for capture');
+              clearTimeout(timeout);
               resolve();
             } else {
               // Check again in 100ms
@@ -82,6 +155,7 @@ export const useCamera = () => {
           // Also listen for canplaythrough event as backup
           const onCanPlayThrough = () => {
             console.log('Video canplaythrough event fired');
+            clearTimeout(timeout);
             video.removeEventListener('canplaythrough', onCanPlayThrough);
             resolve();
           };
@@ -110,6 +184,13 @@ export const useCamera = () => {
           errorMessage += 'No camera found. Please connect a camera and try again.';
         } else if (error.name === 'NotReadableError') {
           errorMessage += 'Camera is being used by another application. Please close other apps and try again.';
+        } else if (error.name === 'OverconstrainedError') {
+          errorMessage += 'Camera constraints not supported. Trying with basic settings...';
+          // Retry with minimal constraints
+          setTimeout(() => {
+            startCamera();
+          }, 1000);
+          return;
         } else {
           errorMessage += error.message;
         }
@@ -138,6 +219,7 @@ export const useCamera = () => {
     
     if (videoRef.current) {
       videoRef.current.srcObject = null;
+      videoRef.current.load(); // Reset video element
     }
 
     setCameraState({
@@ -161,17 +243,23 @@ export const useCamera = () => {
     const video = videoRef.current;
     
     // Check if video is ready
-    if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+    if (video.readyState < video.HAVE_CURRENT_DATA) {
       console.warn('Video not ready for capture, readyState:', video.readyState);
-      return null;
+      // Try anyway if video dimensions are available
+      if (!video.videoWidth || !video.videoHeight) {
+        return null;
+      }
     }
 
     try {
       const canvas = document.createElement('canvas');
       
       // Use actual video dimensions
-      canvas.width = video.videoWidth || 640;
-      canvas.height = video.videoHeight || 480;
+      const width = video.videoWidth || video.clientWidth || 640;
+      const height = video.videoHeight || video.clientHeight || 480;
+      
+      canvas.width = width;
+      canvas.height = height;
       
       console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
       
@@ -181,9 +269,15 @@ export const useCamera = () => {
         return null;
       }
       
+      // Save context state
+      ctx.save();
+      
       // Draw the video frame to canvas (flip horizontally to match preview)
       ctx.scale(-1, 1);
       ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+      
+      // Restore context state
+      ctx.restore();
       
       // Convert to data URL with high quality
       const dataUrl = canvas.toDataURL('image/jpeg', 0.95);

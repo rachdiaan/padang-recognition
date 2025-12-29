@@ -112,6 +112,15 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
               <p className="text-blue-200 text-sm">
                 This app needs camera access to capture photos of your food. Please allow camera permissions when prompted.
               </p>
+              <div className="mt-3 text-blue-200 text-xs">
+                <p className="font-medium">Supported devices:</p>
+                <ul className="list-disc list-inside mt-1 space-y-1">
+                  <li>Desktop computers with webcam</li>
+                  <li>Mobile phones (front & back camera)</li>
+                  <li>Tablets with camera</li>
+                  <li>All modern browsers (Chrome, Firefox, Safari, Edge)</li>
+                </ul>
+              </div>
             </div>
           </div>
         ) : (
