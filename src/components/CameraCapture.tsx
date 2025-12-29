@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, CameraOff, Aperture as Capture, AlertTriangle, Zap } from 'lucide-react';
+import { Camera, CameraOff, Aperture as Capture, AlertTriangle, Zap, Upload, Image, FolderOpen } from 'lucide-react';
 import { useCamera } from '../hooks/useCamera';
 
 interface CameraCaptureProps {
@@ -8,6 +8,50 @@ interface CameraCaptureProps {
 
 export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
   const { cameraState, videoRef, startCamera, stopCamera, captureImage } = useCamera();
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      console.error('Invalid file type. Please select an image file.');
+      alert('Please select a valid image file (JPG, PNG, etc.)');
+      return;
+    }
+
+    // Validate file size (max 10MB)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      console.error('File too large. Maximum size is 10MB.');
+      alert('File is too large. Please select an image smaller than 10MB.');
+      return;
+    }
+
+    console.log('Processing uploaded file:', file.name, 'Size:', (file.size / 1024 / 1024).toFixed(2) + 'MB');
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result;
+      if (typeof result === 'string') {
+        console.log('File uploaded successfully');
+        onImageCaptured(result);
+      } else {
+        console.error('Failed to read file');
+        alert('Failed to read the selected file. Please try again.');
+      }
+    };
+
+    reader.onerror = () => {
+      console.error('Error reading file');
+      alert('Error reading the selected file. Please try again.');
+    };
+
+    reader.readAsDataURL(file);
+    
+    // Reset input value to allow selecting the same file again
+    event.target.value = '';
+  };
 
   const handleCapture = () => {
     if (!cameraState.isReadyForCapture) {
@@ -51,23 +95,52 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             <p className="text-gray-300 mb-8 max-w-md mx-auto">
               Enable your camera to start identifying delicious Padang dishes with AI-powered recognition
             </p>
-            <button
-              onClick={handleStartCamera}
-              className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25 flex items-center space-x-3 mx-auto group"
-            >
-              <Zap size={24} className="group-hover:animate-pulse" />
-              <span>🎥 Start Camera</span>
-            </button>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <button
+                onClick={handleStartCamera}
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-500/25 flex items-center space-x-3 group"
+              >
+                <Camera size={24} className="group-hover:animate-pulse" />
+                <span>📷 Start Camera</span>
+              </button>
+              
+              <div className="text-gray-400 font-bold">OR</div>
+              
+              <label className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-blue-500/25 flex items-center space-x-3 cursor-pointer group">
+                <Upload size={24} className="group-hover:animate-bounce" />
+                <span>📁 Upload Image</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  aria-label="Upload image file"
+                />
+              </label>
+            </div>
             
             {/* Camera permissions info */}
-            <div className="mt-6 p-4 bg-blue-500/10 border border-blue-400/20 rounded-2xl max-w-md mx-auto backdrop-blur-sm">
-              <div className="flex items-center space-x-2 mb-2">
-                <Camera className="text-blue-400" size={20} />
-                <span className="text-blue-300 font-medium">Camera Permissions Required</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              <div className="p-4 bg-blue-500/10 border border-blue-400/20 rounded-2xl backdrop-blur-sm">
+                <div className="flex items-center space-x-2 mb-2">
+                  <Camera className="text-blue-400" size={20} />
+                  <span className="text-blue-300 font-medium">Camera Access</span>
+                </div>
+                <p className="text-blue-200 text-sm">
+                  Camera permissions required for live photo capture. Click "Allow" when prompted.
+                </p>
               </div>
-              <p className="text-blue-200 text-sm">
-                This app needs camera access to capture photos of your food. Please allow camera permissions when prompted.
-              </p>
+              
+              <div className="p-4 bg-purple-500/10 border border-purple-400/20 rounded-2xl backdrop-blur-sm">
+                <div className="flex items-center space-x-2 mb-2">
+                  <FolderOpen className="text-purple-400" size={20} />
+                  <span className="text-purple-300 font-medium">File Upload</span>
+                </div>
+                <p className="text-purple-200 text-sm">
+                  Upload images from your device storage. Supports JPG, PNG, and other image formats.
+                </p>
+              </div>
             </div>
           </div>
         ) : (
