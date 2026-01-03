@@ -16,12 +16,12 @@ function App() {
   const { isLoading: modelLoading, isClassifying, classifyImage } = useImageClassification();
 
   const handleImageCaptured = async (imageDataUrl: string) => {
-    console.log('Image captured in App component');
+    console.log('🖼️ Image received in App component');
     
     // Validate image data
     if (!imageDataUrl || !imageDataUrl.startsWith('data:image/')) {
-      console.error('Invalid image data received');
-      alert('Invalid image data. Please try capturing again.');
+      console.error('❌ Invalid image data received');
+      alert('❌ Invalid image data. Please try capturing or uploading again.');
       return;
     }
     
@@ -29,15 +29,14 @@ function App() {
     setPredictions([]);
     
     try {
-      console.log('Starting classification...');
+      console.log('🧠 Starting AI classification...');
       const results = await classifyImage(imageDataUrl);
-      console.log('Classification results:', results);
+      console.log('✅ Classification completed:', results.length, 'results');
       setPredictions(results);
     } catch (error) {
-      console.error('Classification failed:', error);
+      console.error('❌ Classification failed:', error);
       setPredictions([]);
-      // Show user-friendly error message
-      console.warn('Classification failed, but continuing with empty results');
+      console.warn('⚠️ Classification failed, but continuing with empty results');
     }
   };
 
