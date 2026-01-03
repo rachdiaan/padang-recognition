@@ -355,6 +355,18 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             </div>
           </div>
         )}
+        
+        {/* Hidden video element for camera initialization - always present in DOM */}
+        {!cameraState.isActive && (
+          <video
+            ref={videoRef}
+            className="hidden"
+            autoPlay
+            playsInline
+            muted
+            style={{ display: 'none' }}
+          />
+        )}
       </div>
     </div>
   );
