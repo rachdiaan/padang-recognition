@@ -17,7 +17,7 @@ export const Documentation: React.FC = () => {
   return (
     <div className="d-flex flex-column gap-5">
       {/* Hero Section */}
-      <div className="card text-white bg-primary border-0 shadow-lg overflow-hidden">
+      <div className="card-premium bg-gradient-primary-info text-white overflow-hidden">
         <div className="card-body p-5 text-center">
           <h1 className="display-4 fw-bold mb-3">📚 Documentation</h1>
           <p className="lead mb-0 text-white-50">

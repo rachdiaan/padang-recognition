@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Camera, CameraOff, Aperture as Capture, Zap, Upload, Smartphone, Monitor, Wifi, Shield, CheckCircle, XCircle } from 'lucide-react';
+import React from 'react';
+import { Camera, CameraOff, Aperture as Capture, Upload, Smartphone, Monitor, Wifi, Shield, CheckCircle, XCircle } from 'lucide-react';
 import { useCamera } from '../hooks/useCamera';
 
 interface CameraCaptureProps {
@@ -112,7 +112,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
   };
 
   return (
-    <div className="card shadow-sm border-0 bg-dark text-white overflow-hidden">
+    <div className="card border-0 bg-dark text-white overflow-hidden rounded-4 shadow-lg">
       {!cameraState.isActive ? (
         <div className="card-body p-5 text-center">
           <div className="mb-4">
@@ -170,7 +170,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                   </div>
 
                   {/* Center Focus Guide */}
-                  <div className="position-absolute top-50 start-50 translate-middle pointer-events-none">
+                  <div className="position-absolute top-50 start-50 translate-middle pe-none">
                     <div className="border border-2 border-white border-opacity-50 rounded-3 d-flex align-items-center justify-content-center" style={{ width: '250px', height: '250px' }}>
                       <div className="text-center text-white text-opacity-75">
                         <Camera size={32} className="mb-2" />
@@ -183,7 +183,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             </div>
 
             {/* Instructions */}
-            <div className="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t from-black text-center text-white small">
+            <div className="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-black-bottom text-center text-white small">
               Position your Padang dish in the center • Ensure good lighting
             </div>
           </div>

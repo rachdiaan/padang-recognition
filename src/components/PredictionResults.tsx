@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, Clock, MapPin, Flame, Brain, Target, Sparkles, Zap } from 'lucide-react';
+import { Trophy, Clock, MapPin, Flame, Target, Zap } from 'lucide-react';
 import { PredictionResult } from '../types/food';
 
 interface PredictionResultsProps {
@@ -77,7 +77,7 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
       {predictions.map((prediction, index) => (
         <div
           key={index}
-          className="card border-0 shadow-sm overflow-hidden hover-shadow transition-all"
+          className="card-premium overflow-hidden hover-shadow transition-all"
         >
           <div className="card-body p-4">
             <div className="d-flex justify-content-between align-items-start mb-3">
@@ -127,7 +127,7 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
               </div>
             </div>
 
-            <div className="card bg-light border-0 rounded-3">
+            <div className="card bg-white border border-light shadow-sm rounded-4">
               <div className="card-body py-3">
                 <h6 className="fw-bold mb-3 small text-uppercase text-secondary">Nutrition (per serving)</h6>
                 <div className="row text-center">

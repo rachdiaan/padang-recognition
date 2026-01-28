@@ -22,7 +22,7 @@ export const DatasetInfo: React.FC = () => {
   return (
     <div className="d-flex flex-column gap-5">
       {/* Dataset Overview */}
-      <div className="card border-0 shadow-lg overflow-hidden">
+      <div className="card-premium overflow-hidden">
         <div className="card-header bg-success text-white p-5 border-0">
           <h1 className="display-5 fw-bold mb-2">🗄️ Dataset Information</h1>
           <p className="lead mb-0 opacity-75">Comprehensive Padang Food Recognition Database</p>

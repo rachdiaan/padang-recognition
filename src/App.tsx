@@ -145,15 +145,15 @@ function App() {
   );
 
   return (
-    <div className="min-vh-100 bg-light position-relative overflow-hidden">
+    <div className="min-vh-100 bg-gradient-premium position-relative overflow-hidden">
       {/* Floating Navigation */}
       <FloatingNav currentPage={currentPage} onPageChange={setCurrentPage} />
 
       {/* Header */}
-      <header className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+      <header className="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 backdrop-blur sticky-top shadow-sm py-3">
         <div className="container">
           <div className="d-flex align-items-center">
-            <div className="p-2 bg-danger rounded-3 shadow-sm me-3">
+            <div className="p-2 bg-gradient-primary-info rounded-3 shadow-sm me-3">
               <ChefHat className="text-white" size={24} />
             </div>
             <div>
