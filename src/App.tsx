@@ -66,7 +66,7 @@ function App() {
             </div>
             <div className="progress" style={{ height: '12px' }}>
               <div
-                className="progress-bar bg-gradient-to-r from-primary to-info"
+                className="progress-bar bg-gradient-primary-info"
                 role="progressbar"
                 style={{ width: `${modelLoadProgress}%` }}
               />

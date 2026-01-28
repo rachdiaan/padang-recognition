@@ -105,7 +105,7 @@ export const DatasetInfo: React.FC = () => {
                           <span className="badge bg-primary bg-opacity-10 text-primary fw-normal border border-primary border-opacity-25 rounded-pill px-3">
                             {food.category}
                           </span>
-                          <span className={`badge rounded-pill fw-normal border px-3 ${food.spiceLevel === 'mild' ? 'bg-success bg-opacity-10 text-success border-success block-opacity-25' :
+                          <span className={`badge rounded-pill fw-normal border px-3 ${food.spiceLevel === 'mild' ? 'bg-success bg-opacity-10 text-success border-success border-opacity-25' :
                             food.spiceLevel === 'medium' ? 'bg-warning bg-opacity-10 text-warning border-warning border-opacity-25' :
                               'bg-danger bg-opacity-10 text-danger border-danger border-opacity-25'
                             }`}>

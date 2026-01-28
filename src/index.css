@@ -9,15 +9,44 @@ body {
   /* Bootstrap light gray */
 }
 
-/* Custom Utilities for Camera overlay if needed */
+
+
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Custom Utilities replacing Tailwind */
 .object-cover {
   object-fit: cover;
 }
 
-.h-96 {
-  height: 24rem;
+.min-w-0 {
+  min-width: 0;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hover-opacity:hover {
+  opacity: 0.8;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.fs-7 {
+  font-size: 0.875rem;
+}
+
+/* Custom Gradients */
+.bg-gradient-primary-info {
+  background: linear-gradient(to right, var(--bs-primary), var(--bs-info));
 }
