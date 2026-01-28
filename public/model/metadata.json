@@ -77,5 +77,7 @@
   },
   "imageSize": 224,
   "modelVersion": "1.0.0",
-  "accuracy": 0.8608247637748718
+  "accuracy": 0.8608247637748718,
+  "modelFormat": "tfjs-layers-model",
+  "modelFile": "model.json"
 }

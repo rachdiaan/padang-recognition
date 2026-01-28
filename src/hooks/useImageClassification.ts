@@ -4,7 +4,7 @@ import { padangFoodDataset, getFoodByClassIndex } from '../data/padangFoodDatase
 import { PredictionResult, FoodItem } from '../types/food';
 
 // Configuration
-const USE_CUSTOM_MODEL = false; // Set to true when custom model is available
+const USE_CUSTOM_MODEL = true; // Custom model now available!
 const CUSTOM_MODEL_URL = '/model/model.json';
 const MOBILENET_URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v2_100_224/feature_vector/3/default/1';
 
