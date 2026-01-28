@@ -7065,7 +7065,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_10_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7151,7 +7151,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_10_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7196,7 +7196,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_10_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7283,7 +7283,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_10_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7369,7 +7369,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_11_expand",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7456,7 +7456,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_11_expand_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7542,7 +7542,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_11_expand_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7587,7 +7587,7 @@
             "class_name": "DepthwiseConv2D",
             "config": {
               "name": "block_11_depthwise",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7673,7 +7673,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_11_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7759,7 +7759,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_11_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7804,7 +7804,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_11_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7891,7 +7891,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_11_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -7977,7 +7977,7 @@
             "class_name": "Add",
             "config": {
               "name": "block_11_add",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8054,7 +8054,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_12_expand",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8141,7 +8141,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_12_expand_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8227,7 +8227,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_12_expand_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8272,7 +8272,7 @@
             "class_name": "DepthwiseConv2D",
             "config": {
               "name": "block_12_depthwise",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8358,7 +8358,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_12_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8444,7 +8444,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_12_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8489,7 +8489,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_12_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8576,7 +8576,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_12_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8662,7 +8662,7 @@
             "class_name": "Add",
             "config": {
               "name": "block_12_add",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8739,7 +8739,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_13_expand",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8826,7 +8826,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_13_expand_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8912,7 +8912,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_13_expand_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -8957,7 +8957,7 @@
             "class_name": "ZeroPadding2D",
             "config": {
               "name": "block_13_pad",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9018,7 +9018,7 @@
             "class_name": "DepthwiseConv2D",
             "config": {
               "name": "block_13_depthwise",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9104,7 +9104,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_13_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9190,7 +9190,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_13_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9235,7 +9235,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_13_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9322,7 +9322,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_13_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9408,7 +9408,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_14_expand",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9495,7 +9495,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_14_expand_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9581,7 +9581,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_14_expand_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9626,7 +9626,7 @@
             "class_name": "DepthwiseConv2D",
             "config": {
               "name": "block_14_depthwise",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9712,7 +9712,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_14_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9798,7 +9798,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_14_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9843,7 +9843,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_14_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -9930,7 +9930,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_14_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10016,7 +10016,7 @@
             "class_name": "Add",
             "config": {
               "name": "block_14_add",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10093,7 +10093,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_15_expand",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10180,7 +10180,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_15_expand_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10266,7 +10266,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_15_expand_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10311,7 +10311,7 @@
             "class_name": "DepthwiseConv2D",
             "config": {
               "name": "block_15_depthwise",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10397,7 +10397,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_15_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10483,7 +10483,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_15_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10528,7 +10528,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_15_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10615,7 +10615,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_15_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10701,7 +10701,7 @@
             "class_name": "Add",
             "config": {
               "name": "block_15_add",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10778,7 +10778,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_16_expand",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10865,7 +10865,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_16_expand_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10951,7 +10951,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_16_expand_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -10996,7 +10996,7 @@
             "class_name": "DepthwiseConv2D",
             "config": {
               "name": "block_16_depthwise",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11082,7 +11082,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_16_depthwise_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11168,7 +11168,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "block_16_depthwise_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11213,7 +11213,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "block_16_project",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11300,7 +11300,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "block_16_project_BN",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11386,7 +11386,7 @@
             "class_name": "Conv2D",
             "config": {
               "name": "Conv_1",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11473,7 +11473,7 @@
             "class_name": "BatchNormalization",
             "config": {
               "name": "Conv_1_bn",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",
@@ -11559,7 +11559,7 @@
             "class_name": "ReLU",
             "config": {
               "name": "out_relu",
-              "trainable": true,
+              "trainable": false,
               "dtype": {
                 "module": "keras",
                 "class_name": "DTypePolicy",

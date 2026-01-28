@@ -26,15 +26,16 @@ import json
 import numpy as np
 
 # Configuration
-DATASET_PATH = "./dataset/padangfood/dataset_padang_food"
+DATASET_PATH = "./dataset/train"
 if not os.path.exists(DATASET_PATH):
-    DATASET_PATH = "./dataset/padangfood"
+    # Fallback to check if user ran old script
+    DATASET_PATH = "./dataset/padangfood/dataset_padang_food"
 MODEL_OUTPUT_DIR = "./model"
 TFJS_OUTPUT_DIR = "./public/model"
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
-EPOCHS_HEAD = 15
-EPOCHS_FINE = 40
+EPOCHS_HEAD = 20 # Increased from 15
+EPOCHS_FINE = 60 # Increased from 40
 
 # Class mappings
 CLASS_MAPPING = {

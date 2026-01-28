@@ -27,11 +27,11 @@ def convert_keras_to_tfjs():
     keras_model_path = "model/best_model.keras"  # Use best model (smaller)
     output_dir = "public/model"
     
-    # Prioritize optimized model
-    if os.path.exists("model/padang_food_model_optimized.keras"):
+    # Prioritize best_model.keras as it stores the highest validation accuracy checkpointed model
+    if os.path.exists("model/best_model.keras"):
+        keras_model_path = "model/best_model.keras"
+    elif os.path.exists("model/padang_food_model_optimized.keras"):
         keras_model_path = "model/padang_food_model_optimized.keras"
-    elif os.path.exists("model/best_model.keras"):
-        keras_model_path = "model/best_model.keras"  # Use best model (smaller)
     
     if not os.path.exists(keras_model_path):
         print(f"ERROR: No model found!")
