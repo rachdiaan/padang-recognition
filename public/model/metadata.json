@@ -76,8 +76,8 @@
     "telur_dadar": 8
   },
   "imageSize": 224,
-  "modelVersion": "1.0.0",
-  "accuracy": 0.8608247637748718,
+  "modelVersion": "2.0.0-optimized",
+  "accuracy": 0.8659793734550476,
   "modelFormat": "tfjs-layers-model",
   "modelFile": "model.json"
 }
