@@ -8,6 +8,7 @@ import { Documentation } from './components/Documentation';
 import { FloatingNav } from './components/FloatingNav';
 import { useImageClassification } from './hooks/useImageClassification';
 import { PredictionResult } from './types/food';
+import { ThemeToggle } from './components/ThemeToggle';
 
 function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
@@ -152,16 +153,19 @@ function App() {
       {/* Header */}
       <header className="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 backdrop-blur sticky-top shadow-sm py-3">
         <div className="container">
-          <div className="d-flex align-items-center">
-            <div className="p-2 bg-gradient-primary-info rounded-3 shadow-sm me-3">
-              <ChefHat className="text-white" size={24} />
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <div className="d-flex align-items-center">
+              <div className="p-2 bg-gradient-primary-info rounded-3 shadow-sm me-3">
+                <ChefHat className="text-white" size={24} />
+              </div>
+              <div>
+                <h1 className="h4 fw-bold text-white mb-0">
+                  Padang Food Recognition
+                </h1>
+                <p className="text-white-50 small mb-0">Advanced AI-powered food identification system</p>
+              </div>
             </div>
-            <div>
-              <h1 className="h4 fw-bold text-white mb-0">
-                Padang Food Recognition
-              </h1>
-              <p className="text-white-50 small mb-0">Advanced AI-powered food identification system</p>
-            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>

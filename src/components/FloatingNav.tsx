@@ -38,7 +38,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentPage, onPageCha
         position-fixed z-3 transition-all
         ${isOpen ? 'top-0 end-0 m-3 mt-5 pt-4' : 'd-none d-lg-block top-50 end-0 translate-middle-y me-4'}
       `}>
-        <div className="bg-dark bg-opacity-75 backdrop-blur rounded-4 shadow-lg p-2 border border-secondary">
+        <div className="card-premium p-2 border border-secondary border-opacity-25 bg-opacity-75 backdrop-blur">
           <div className="d-flex flex-column gap-2">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -55,12 +55,12 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentPage, onPageCha
                     btn d-flex align-items-center gap-2 px-4 py-3 rounded-pill transition-all border-0
                     ${isActive
                       ? 'btn-danger text-white shadow'
-                      : 'btn-outline-light text-light hover-opacity'
+                      : 'btn-ghost hover-bg-secondary hover-text-primary'
                     }
                   `}
                 >
                   <Icon size={20} className={isActive ? 'text-white' : 'text-secondary'} />
-                  <span className={`fw-medium ${isActive ? 'text-white' : 'text-light'}`}>
+                  <span className={`fw-medium ${isActive ? 'text-white' : 'text-secondary'}`}>
                     {item.label}
                   </span>
                 </button>

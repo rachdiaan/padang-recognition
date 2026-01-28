@@ -33,16 +33,16 @@ export const DatasetInfo: React.FC = () => {
             <div className="col-md-3 col-6">
               <div className="p-4 bg-light rounded-4 text-center border h-100">
                 <Database className="mx-auto text-success mb-3" size={32} />
-                <div className="h2 fw-bold text-dark">{padangFoodDataset.length}</div>
-                <div className="small text-muted fw-bold">Food Items</div>
+                <div className="h2 fw-bold">{padangFoodDataset.length}</div>
+                <div className="small text-secondary fw-bold">Food Items</div>
               </div>
             </div>
 
             <div className="col-md-3 col-6">
               <div className="p-4 bg-light rounded-4 text-center border h-100">
                 <Utensils className="mx-auto text-warning mb-3" size={32} />
-                <div className="h2 fw-bold text-dark">{categories.length}</div>
-                <div className="small text-muted fw-bold">Categories</div>
+                <div className="h2 fw-bold">{categories.length}</div>
+                <div className="small text-secondary fw-bold">Categories</div>
               </div>
             </div>
 

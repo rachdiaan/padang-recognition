@@ -1,12 +1,32 @@
 :root {
   --bs-font-sans-serif: 'Poppins', sans-serif;
   --bs-body-font-family: 'Poppins', sans-serif;
+
+  /* Light Theme Variables */
+  --bg-gradient-start: #fdfbfb;
+  --bg-gradient-end: #ebedee;
+  --card-bg: #ffffff;
+  --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  --header-bg: rgba(33, 37, 41, 0.85);
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+}
+
+[data-bs-theme="dark"] {
+  /* Dark Theme Variables */
+  --bg-gradient-start: #212529;
+  --bg-gradient-end: #000000;
+  --card-bg: #2b3035;
+  --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  --header-bg: rgba(0, 0, 0, 0.5);
+  --text-primary: #f8f9fa;
+  --text-secondary: #adb5bd;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f8f9fa;
-  color: #2c3e50;
+  background-color: var(--bs-body-bg);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -45,14 +65,15 @@ body {
 .card-premium {
   border: none;
   border-radius: 1rem;
-  background: white;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Custom Gradients */
 .bg-gradient-premium {
-  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
 }
 
 .bg-gradient-primary-info {
