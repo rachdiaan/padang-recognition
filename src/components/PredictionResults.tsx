@@ -10,23 +10,13 @@ interface PredictionResultsProps {
 export const PredictionResults: React.FC<PredictionResultsProps> = ({ predictions, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 animate-pulse">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <div className="relative">
-            <Brain className="text-orange-400 animate-spin" size={48} />
-            <div className="absolute inset-0 animate-ping">
-              <Sparkles className="text-orange-300/50" size={48} />
-            </div>
+      <div className="card border-0 shadow-sm bg-light">
+        <div className="card-body p-5 text-center">
+          <div className="spinner-border text-primary mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
+            <span className="visually-hidden">Loading...</span>
           </div>
-          <div className="text-center">
-            <p className="text-white font-bold text-xl mb-2">🔍 Analyzing Image...</p>
-            <p className="text-orange-300 font-medium">Advanced computer vision processing</p>
-            <div className="mt-4 flex items-center justify-center space-x-2">
-              <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce delay-100"></div>
-              <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce delay-200"></div>
-            </div>
-          </div>
+          <h4 className="fw-bold text-dark">🔍 Analyzing Image...</h4>
+          <p className="text-muted">Advanced computer vision processing</p>
         </div>
       </div>
     );
@@ -34,27 +24,25 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
 
   if (predictions.length === 0) {
     return (
-      <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 text-center">
-        <div className="relative mb-6">
-          <Target className="mx-auto text-gray-400" size={64} />
-          <div className="absolute inset-0 animate-pulse">
-            <Target className="mx-auto text-gray-500/30" size={64} />
+      <div className="card border-0 shadow-sm bg-dark text-white text-center">
+        <div className="card-body p-5">
+          <div className="mb-4">
+            <Target className="text-secondary opacity-50 mx-auto" size={64} />
           </div>
-        </div>
-        <h3 className="text-white font-bold text-xl mb-3">🎯 Ready for Analysis</h3>
-        <p className="text-gray-300 text-lg mb-2">Capture a photo to identify Padang dishes</p>
-        <p className="text-gray-400 text-sm">Advanced image analysis will begin automatically</p>
-        
-        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-400/20 rounded-2xl backdrop-blur-sm">
-          <div className="flex items-center justify-center space-x-2 mb-2">
-            <Zap className="text-blue-400" size={20} />
-            <span className="text-blue-300 font-medium">Pro Tips</span>
+          <h3 className="fw-bold mb-2">🎯 Ready for Analysis</h3>
+          <p className="text-white-50 mb-4">Capture a photo to identify Padang dishes</p>
+
+          <div className="alert alert-info bg-opacity-10 border-info text-info text-start d-inline-block">
+            <div className="d-flex align-items-center mb-2 fw-bold">
+              <Zap size={18} className="me-2" />
+              Pro Tips
+            </div>
+            <ul className="mb-0 small ps-3">
+              <li>Use good lighting for best results</li>
+              <li>Center the dish in the frame</li>
+              <li>Avoid shadows and reflections</li>
+            </ul>
           </div>
-          <ul className="text-blue-200 text-sm space-y-1">
-            <li>• Use good lighting for best results</li>
-            <li>• Center the dish in the frame</li>
-            <li>• Avoid shadows and reflections</li>
-          </ul>
         </div>
       </div>
     );
@@ -62,134 +50,117 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
 
   const getSpiceLevelColor = (level: string) => {
     switch (level.toLowerCase()) {
-      case 'mild': return 'text-green-400';
-      case 'medium': return 'text-yellow-400';
-      case 'hot': return 'text-orange-400';
-      case 'very-hot': return 'text-red-400';
-      default: return 'text-gray-400';
+      case 'mild': return 'text-success';
+      case 'medium': return 'text-warning';
+      case 'hot': return 'text-danger';
+      case 'very-hot': return 'text-danger fw-bold';
+      default: return 'text-secondary';
     }
   };
 
   const getSpiceLevelIcon = (level: string) => {
-    const count = level.toLowerCase() === 'mild' ? 1 : 
-                  level.toLowerCase() === 'medium' ? 2 : 
-                  level.toLowerCase() === 'hot' ? 3 : 4;
+    const count = level.toLowerCase() === 'mild' ? 1 :
+      level.toLowerCase() === 'medium' ? 2 :
+        level.toLowerCase() === 'hot' ? 3 : 4;
     return Array(count).fill(0).map((_, i) => (
-      <Flame key={i} className={`w-3 h-3 ${getSpiceLevelColor(level)}`} />
+      <Flame key={i} className={`me-1 ${getSpiceLevelColor(level)}`} size={14} />
     ));
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-3 mb-6">
-        <Trophy className="w-6 h-6 text-yellow-400" />
-        <h3 className="text-white font-bold text-xl">🎯 Recognition Results</h3>
+    <div className="d-flex flex-column gap-4">
+      <div className="d-flex align-items-center mb-2">
+        <Trophy className="text-warning me-2" size={24} />
+        <h3 className="fw-bold mb-0">Results</h3>
       </div>
-      
+
       {predictions.map((prediction, index) => (
         <div
           key={index}
-          className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 shadow-xl"
+          className="card border-0 shadow-sm overflow-hidden hover-shadow transition-all"
         >
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h4 className="text-white font-bold text-xl mb-1">{prediction.food.name}</h4>
-              <p className="text-orange-300 font-medium">{prediction.food.nameEn}</p>
-            </div>
-            <div className="text-right">
-              <div className="bg-gradient-to-r from-orange-400 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                {Math.round(prediction.confidence * 100)}%
+          <div className="card-body p-4">
+            <div className="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h2 className="card-title fw-bold mb-1 h3 text-primary">{prediction.food.name}</h2>
+                <h5 className="text-secondary fw-light">{prediction.food.nameEn}</h5>
               </div>
-              <div className="text-xs text-gray-400 mt-1">
-                Match: {Math.round(prediction.matchScore * 100)}%
-              </div>
-            </div>
-          </div>
-
-          <p className="text-gray-300 mb-4 leading-relaxed">{prediction.food.description}</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div className="flex items-center space-x-2">
-              <MapPin className="w-4 h-4 text-blue-400" />
-              <span className="text-gray-300 text-sm">{prediction.food.region}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Clock className="w-4 h-4 text-green-400" />
-              <span className="text-gray-300 text-sm">{prediction.food.cookingTime}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-300 text-sm">Spice:</span>
-              <div className="flex space-x-1">
-                {getSpiceLevelIcon(prediction.food.spiceLevel)}
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h5 className="text-white font-semibold mb-2">Main Ingredients:</h5>
-            <div className="flex flex-wrap gap-2">
-              {prediction.food.ingredients.slice(0, 6).map((ingredient, i) => (
-                <span
-                  key={i}
-                  className="bg-white/10 text-gray-300 px-3 py-1 rounded-full text-sm border border-white/20"
-                >
-                  {ingredient}
+              <div className="text-end">
+                <span className="badge bg-danger rounded-pill fs-6 px-3 py-2 shadow-sm mb-1">
+                  {Math.round(prediction.confidence * 100)}% Match
                 </span>
-              ))}
-              {prediction.food.ingredients.length > 6 && (
-                <span className="text-gray-400 text-sm">+{prediction.food.ingredients.length - 6} more</span>
-              )}
+                <div className="small text-muted">Score: {(prediction.matchScore * 100).toFixed(1)}</div>
+              </div>
             </div>
-          </div>
 
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-            <h5 className="text-white font-semibold mb-3">Nutritional Information (per serving):</h5>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-              <div className="text-center">
-                <div className="text-orange-300 font-bold text-lg">{prediction.food.nutritionalInfo.calories}</div>
-                <div className="text-gray-400">Calories</div>
+            <p className="card-text text-dark opacity-75 lead fs-6">{prediction.food.description}</p>
+
+            <div className="row g-3 mb-4">
+              <div className="col-4">
+                <div className="d-flex align-items-center text-muted small">
+                  <MapPin className="me-1" size={14} />
+                  {prediction.food.region}
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-blue-300 font-bold text-lg">{prediction.food.nutritionalInfo.protein}g</div>
-                <div className="text-gray-400">Protein</div>
+              <div className="col-4">
+                <div className="d-flex align-items-center text-muted small">
+                  <Clock className="me-1" size={14} />
+                  {prediction.food.cookingTime}
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-green-300 font-bold text-lg">{prediction.food.nutritionalInfo.carbs}g</div>
-                <div className="text-gray-400">Carbs</div>
+              <div className="col-4">
+                <div className="d-flex align-items-center small">
+                  <span className="text-muted me-2">Spice:</span>
+                  {getSpiceLevelIcon(prediction.food.spiceLevel)}
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-yellow-300 font-bold text-lg">{prediction.food.nutritionalInfo.fat}g</div>
-                <div className="text-gray-400">Fat</div>
+            </div>
+
+            <div className="mb-4">
+              <h6 className="fw-bold text-dark mb-2">Main Ingredients:</h6>
+              <div className="d-flex flex-wrap gap-2">
+                {prediction.food.ingredients.slice(0, 6).map((ingredient, i) => (
+                  <span key={i} className="badge bg-light text-dark border fw-normal px-3 py-2 rounded-pill">
+                    {ingredient}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="card bg-light border-0 rounded-3">
+              <div className="card-body py-3">
+                <h6 className="fw-bold mb-3 small text-uppercase text-secondary">Nutrition (per serving)</h6>
+                <div className="row text-center">
+                  <div className="col-3 border-end">
+                    <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.calories}</div>
+                    <small className="text-muted" style={{ fontSize: '0.7rem' }}>KCAL</small>
+                  </div>
+                  <div className="col-3 border-end">
+                    <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.protein}g</div>
+                    <small className="text-muted" style={{ fontSize: '0.7rem' }}>PROT</small>
+                  </div>
+                  <div className="col-3 border-end">
+                    <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.carbs}g</div>
+                    <small className="text-muted" style={{ fontSize: '0.7rem' }}>CARB</small>
+                  </div>
+                  <div className="col-3">
+                    <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.fat}g</div>
+                    <small className="text-muted" style={{ fontSize: '0.7rem' }}>FAT</small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       ))}
 
-      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-md rounded-2xl p-6 border border-white/10">
-        <h5 className="text-white font-semibold mb-3 flex items-center">
-          <Trophy className="w-5 h-5 mr-2 text-yellow-400" />
-          Pro Tips for Better Recognition:
-        </h5>
-        <ul className="text-gray-300 text-sm space-y-2">
-          <li>• Ensure good lighting when taking photos</li>
-          <li>• Center the dish in the frame</li>
-          <li>• Avoid shadows and reflections</li>
-          <li>• Take photos from a slight angle above the dish</li>
-          <li>• Use clean, contrasting backgrounds</li>
-        </ul>
-      </div>
-
-      {/* Footer */}
-      <footer className="bg-black/20 backdrop-blur-md border-t border-white/10 rounded-3xl mt-8">
-        <div className="p-6">
-          <div className="text-center text-gray-300">
-            <p className="text-gray-500">
-              © 2025. Created with 💖 by Rachdian
-            </p>
-          </div>
+      <div className="alert alert-primary d-flex align-items-center" role="alert">
+        <Trophy className="me-3 text-primary" size={24} />
+        <div>
+          <div className="fw-bold">Pro Tip:</div>
+          <span className="small">Take photos from a slight angle above the dish for best recognition accuracy!</span>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };

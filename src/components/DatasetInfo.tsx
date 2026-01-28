@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Database, Utensils, MapPin, Clock, Flame, Info, ChevronDown, ChevronUp, ChefHat } from 'lucide-react';
+import { Database, Utensils, MapPin, Clock, Flame, Info, ChevronDown, ChevronUp } from 'lucide-react';
 import { padangFoodDataset } from '../data/padangFoodDataset';
 
 export const DatasetInfo: React.FC = () => {
@@ -19,141 +19,145 @@ export const DatasetInfo: React.FC = () => {
     setExpandedItems(newExpanded);
   };
 
-  const getSpiceLevelColor = (level: string) => {
-    switch (level) {
-      case 'mild': return 'text-green-400 bg-green-500/10 border-green-400/20';
-      case 'medium': return 'text-yellow-400 bg-yellow-500/10 border-yellow-400/20';
-      case 'hot': return 'text-orange-400 bg-orange-500/10 border-orange-400/20';
-      case 'very-hot': return 'text-red-400 bg-red-500/10 border-red-400/20';
-      default: return 'text-gray-400 bg-gray-500/10 border-gray-400/20';
-    }
-  };
-
   return (
-    <div className="space-y-8">
+    <div className="d-flex flex-column gap-5">
       {/* Dataset Overview */}
-      <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-        <div className="p-8 bg-gradient-to-br from-emerald-600/80 via-teal-600/80 to-cyan-600/80 backdrop-blur-sm">
-          <h1 className="text-4xl font-bold text-white mb-4">🗄️ Dataset Information</h1>
-          <p className="text-emerald-100 text-lg">Comprehensive Padang Food Recognition Database</p>
+      <div className="card border-0 shadow-lg overflow-hidden">
+        <div className="card-header bg-success text-white p-5 border-0">
+          <h1 className="display-5 fw-bold mb-2">🗄️ Dataset Information</h1>
+          <p className="lead mb-0 opacity-75">Comprehensive Padang Food Recognition Database</p>
         </div>
 
-        <div className="p-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            <div className="text-center p-6 bg-emerald-500/10 backdrop-blur-sm rounded-2xl border border-emerald-400/20">
-              <Database className="mx-auto text-emerald-400 mb-3" size={40} />
-              <div className="text-3xl font-bold text-white">{padangFoodDataset.length}</div>
-              <div className="text-sm text-gray-300 font-medium">Food Items</div>
+        <div className="card-body p-5">
+          <div className="row g-4 mb-4">
+            <div className="col-md-3 col-6">
+              <div className="p-4 bg-light rounded-4 text-center border h-100">
+                <Database className="mx-auto text-success mb-3" size={32} />
+                <div className="h2 fw-bold text-dark">{padangFoodDataset.length}</div>
+                <div className="small text-muted fw-bold">Food Items</div>
+              </div>
             </div>
 
-            <div className="text-center p-6 bg-orange-500/10 backdrop-blur-sm rounded-2xl border border-orange-400/20">
-              <Utensils className="mx-auto text-orange-400 mb-3" size={40} />
-              <div className="text-3xl font-bold text-white">{categories.length}</div>
-              <div className="text-sm text-gray-300 font-medium">Categories</div>
+            <div className="col-md-3 col-6">
+              <div className="p-4 bg-light rounded-4 text-center border h-100">
+                <Utensils className="mx-auto text-warning mb-3" size={32} />
+                <div className="h2 fw-bold text-dark">{categories.length}</div>
+                <div className="small text-muted fw-bold">Categories</div>
+              </div>
             </div>
 
-            <div className="text-center p-6 bg-blue-500/10 backdrop-blur-sm rounded-2xl border border-blue-400/20">
-              <MapPin className="mx-auto text-blue-400 mb-3" size={40} />
-              <div className="text-3xl font-bold text-white">{regions.length}</div>
-              <div className="text-sm text-gray-300 font-medium">Regions</div>
+            <div className="col-md-3 col-6">
+              <div className="p-4 bg-light rounded-4 text-center border h-100">
+                <MapPin className="mx-auto text-primary mb-3" size={32} />
+                <div className="h2 fw-bold text-dark">{regions.length}</div>
+                <div className="small text-muted fw-bold">Regions</div>
+              </div>
             </div>
 
-            <div className="text-center p-6 bg-purple-500/10 backdrop-blur-sm rounded-2xl border border-purple-400/20">
-              <Flame className="mx-auto text-purple-400 mb-3" size={40} />
-              <div className="text-3xl font-bold text-white">{spiceLevels.length}</div>
-              <div className="text-sm text-gray-300 font-medium">Spice Levels</div>
+            <div className="col-md-3 col-6">
+              <div className="p-4 bg-light rounded-4 text-center border h-100">
+                <Flame className="mx-auto text-danger mb-3" size={32} />
+                <div className="h2 fw-bold text-dark">{spiceLevels.length}</div>
+                <div className="small text-muted fw-bold">Spice Levels</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Food Items Grid */}
-      <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-        <div className="p-8">
-          <h2 className="text-3xl font-bold text-white mb-6 flex items-center">
-            <Info className="text-blue-400 mr-3" size={32} />
+      <div className="card border-0 shadow-lg">
+        <div className="card-body p-5">
+          <h2 className="fw-bold mb-4 d-flex align-items-center">
+            <Info className="text-primary me-2" size={28} />
             Available Dishes
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="row g-4">
             {padangFoodDataset.map((food) => {
               const isExpanded = expandedItems.has(food.id);
 
               return (
-                <div key={food.id} className="bg-white/5 backdrop-blur-sm rounded-2xl shadow-lg border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-300">
-                  <div className="flex items-start space-x-4 p-6">
-                    <img
-                      src={food.image}
-                      alt={food.name}
-                      className="w-20 h-20 rounded-xl object-cover shadow-md flex-shrink-0"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="font-bold text-white text-lg">{food.name}</h3>
-                          <p className="text-sm text-gray-400">{food.nameEn}</p>
-                        </div>
-                        <button
-                          onClick={() => toggleExpanded(food.id)}
-                          className="text-gray-400 hover:text-white transition-colors p-1"
-                        >
-                          {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                        </button>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        <span className="px-3 py-1 bg-blue-500/20 text-blue-300 text-xs rounded-full font-medium border border-blue-400/20">
-                          {food.category}
-                        </span>
-                        <span className={`px-3 py-1 text-xs rounded-full font-medium border ${getSpiceLevelColor(food.spiceLevel)}`}>
-                          {food.spiceLevel}
-                        </span>
-                        <span className="px-3 py-1 bg-gray-500/20 text-gray-300 text-xs rounded-full font-medium flex items-center border border-gray-400/20">
-                          <Clock size={12} className="mr-1" />
-                          {food.cookingTime}
-                        </span>
-                      </div>
-
-                      {isExpanded && (
-                        <div className="space-y-4 pt-4 border-t border-white/10">
-                          <p className="text-gray-300 text-sm leading-relaxed">
-                            {food.description}
-                          </p>
-
+                <div key={food.id} className="col-lg-6">
+                  <div className="card h-100 border-0 shadow-sm hover-shadow transition-all bg-light">
+                    <div className="card-body p-4 d-flex gap-4">
+                      <img
+                        src={food.image}
+                        alt={food.name}
+                        className="rounded-3 object-cover shadow-sm bg-secondary"
+                        style={{ width: '80px', height: '80px' }}
+                      />
+                      <div className="flex-grow-1 min-w-0">
+                        <div className="d-flex justify-content-between align-items-start mb-2">
                           <div>
-                            <h4 className="font-semibold text-white mb-2 text-sm">Ingredients:</h4>
-                            <div className="flex flex-wrap gap-1">
-                              {food.ingredients.map((ingredient) => (
-                                <span
-                                  key={ingredient}
-                                  className="px-2 py-1 bg-orange-500/20 text-orange-300 text-xs rounded-md border border-orange-400/20"
-                                >
-                                  {ingredient}
-                                </span>
-                              ))}
-                            </div>
+                            <h5 className="fw-bold mb-1 text-dark">{food.name}</h5>
+                            <p className="small text-muted mb-0">{food.nameEn}</p>
                           </div>
-
-                          <div className="grid grid-cols-4 gap-3 pt-2">
-                            <div className="text-center">
-                              <div className="text-lg font-bold text-white">{food.nutritionalInfo.calories}</div>
-                              <div className="text-xs text-gray-400">Calories</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="text-lg font-bold text-white">{food.nutritionalInfo.protein}g</div>
-                              <div className="text-xs text-gray-400">Protein</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="text-lg font-bold text-white">{food.nutritionalInfo.carbs}g</div>
-                              <div className="text-xs text-gray-400">Carbs</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="text-lg font-bold text-white">{food.nutritionalInfo.fat}g</div>
-                              <div className="text-xs text-gray-400">Fat</div>
-                            </div>
-                          </div>
+                          <button
+                            onClick={() => toggleExpanded(food.id)}
+                            className="btn btn-sm btn-link text-secondary p-0"
+                          >
+                            {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                          </button>
                         </div>
-                      )}
+
+                        <div className="d-flex flex-wrap gap-2 mb-3">
+                          <span className="badge bg-primary bg-opacity-10 text-primary fw-normal border border-primary border-opacity-25 rounded-pill px-3">
+                            {food.category}
+                          </span>
+                          <span className={`badge rounded-pill fw-normal border px-3 ${food.spiceLevel === 'mild' ? 'bg-success bg-opacity-10 text-success border-success block-opacity-25' :
+                            food.spiceLevel === 'medium' ? 'bg-warning bg-opacity-10 text-warning border-warning border-opacity-25' :
+                              'bg-danger bg-opacity-10 text-danger border-danger border-opacity-25'
+                            }`}>
+                            {food.spiceLevel}
+                          </span>
+                          <span className="badge bg-secondary bg-opacity-10 text-secondary fw-normal border border-secondary border-opacity-25 rounded-pill px-3 d-flex align-items-center">
+                            <Clock size={12} className="me-1" />
+                            {food.cookingTime}
+                          </span>
+                        </div>
+
+                        {isExpanded && (
+                          <div className="pt-3 border-top mt-3">
+                            <p className="small text-secondary mb-3">
+                              {food.description}
+                            </p>
+
+                            <div className="mb-3">
+                              <h6 className="fw-bold fs-7 text-dark mb-2">Ingredients:</h6>
+                              <div className="d-flex flex-wrap gap-1">
+                                {food.ingredients.map((ingredient) => (
+                                  <span
+                                    key={ingredient}
+                                    className="badge bg-white text-dark border fw-normal"
+                                  >
+                                    {ingredient}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="row g-2 text-center pt-2">
+                              <div className="col-3">
+                                <div className="fw-bold text-dark">{food.nutritionalInfo.calories}</div>
+                                <div className="text-muted" style={{ fontSize: '0.7rem' }}>CALS</div>
+                              </div>
+                              <div className="col-3">
+                                <div className="fw-bold text-dark">{food.nutritionalInfo.protein}g</div>
+                                <div className="text-muted" style={{ fontSize: '0.7rem' }}>PROT</div>
+                              </div>
+                              <div className="col-3">
+                                <div className="fw-bold text-dark">{food.nutritionalInfo.carbs}g</div>
+                                <div className="text-muted" style={{ fontSize: '0.7rem' }}>CARBS</div>
+                              </div>
+                              <div className="col-3">
+                                <div className="fw-bold text-dark">{food.nutritionalInfo.fat}g</div>
+                                <div className="text-muted" style={{ fontSize: '0.7rem' }}>FAT</div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -162,26 +166,6 @@ export const DatasetInfo: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-black/20 backdrop-blur-md border-t border-white/10 rounded-3xl mt-8">
-        <div className="p-8">
-          <div className="text-center text-gray-300">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <ChefHat className="text-orange-400" size={24} />
-              <span className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-                Padang Food Recognition
-              </span>
-            </div>
-            <p className="text-gray-400 font-medium mb-2">
-              Powered by TensorFlow.js and modern web technologies
-            </p>
-            <p className="text-gray-500">
-              © 2025. Created with 💖 by Rachdian
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

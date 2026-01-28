@@ -1,12 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --bs-font-sans-serif: 'Poppins', sans-serif;
+  --bs-body-font-family: 'Poppins', sans-serif;
+}
 
-@layer base {
-  html {
-    font-family: 'Inter', sans-serif;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
-  }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  /* Bootstrap light gray */
+}
+
+/* Custom Utilities for Camera overlay if needed */
+.object-cover {
+  object-fit: cover;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
