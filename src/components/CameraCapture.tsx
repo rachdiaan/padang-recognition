@@ -171,7 +171,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
 
                   {/* Center Focus Guide */}
                   <div className="position-absolute top-50 start-50 translate-middle pe-none">
-                    <div className="border border-2 border-white border-opacity-50 rounded-3 d-flex align-items-center justify-content-center" style={{ width: '250px', height: '250px' }}>
+                    <div className="border border-2 border-white border-opacity-50 rounded-3 d-flex align-items-center justify-content-center transition-all" style={{ width: 'min(250px, 75vw)', height: 'min(250px, 75vw)' }}>
                       <div className="text-center text-white text-opacity-75">
                         <Camera size={32} className="mb-2" />
                         <p className="small fw-bold mb-0">Center dish here</p>

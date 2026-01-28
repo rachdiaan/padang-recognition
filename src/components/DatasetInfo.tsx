@@ -23,15 +23,15 @@ export const DatasetInfo: React.FC = () => {
     <div className="d-flex flex-column gap-5">
       {/* Dataset Overview */}
       <div className="card-premium overflow-hidden">
-        <div className="card-header bg-success text-white p-5 border-0">
+        <div className="card-header bg-success text-white p-4 p-md-5 border-0">
           <h1 className="display-5 fw-bold mb-2">🗄️ Dataset Information</h1>
           <p className="lead mb-0 opacity-75">Comprehensive Padang Food Recognition Database</p>
         </div>
 
-        <div className="card-body p-5">
+        <div className="card-body p-4 p-md-5">
           <div className="row g-4 mb-4">
             <div className="col-md-3 col-6">
-              <div className="p-4 bg-light rounded-4 text-center border h-100">
+              <div className="p-3 p-md-4 bg-light rounded-4 text-center border h-100">
                 <Database className="mx-auto text-success mb-3" size={32} />
                 <div className="h2 fw-bold">{padangFoodDataset.length}</div>
                 <div className="small text-secondary fw-bold">Food Items</div>
@@ -78,7 +78,7 @@ export const DatasetInfo: React.FC = () => {
               const isExpanded = expandedItems.has(food.id);
 
               return (
-                <div key={food.id} className="col-lg-6">
+                <div key={food.id} className="col-lg-6 col-xxl-4">
                   <div className="card h-100 border-0 shadow-sm hover-shadow transition-all bg-light">
                     <div className="card-body p-4 d-flex gap-4">
                       <img

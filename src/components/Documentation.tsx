@@ -18,7 +18,7 @@ export const Documentation: React.FC = () => {
     <div className="d-flex flex-column gap-5">
       {/* Hero Section */}
       <div className="card-premium bg-gradient-primary-info text-white overflow-hidden">
-        <div className="card-body p-5 text-center">
+        <div className="card-body p-4 p-md-5 text-center">
           <h1 className="display-4 fw-bold mb-3">📚 Documentation</h1>
           <p className="lead mb-0 text-white-50">
             Complete guide to using the Padang Food Recognition System
