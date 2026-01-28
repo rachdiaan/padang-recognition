@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, CameraOff, Aperture as Capture, AlertTriangle, Zap, Upload, Smartphone, Monitor, Wifi, Shield, CheckCircle, XCircle } from 'lucide-react';
+import { Camera, CameraOff, Aperture as Capture, Zap, Upload, Smartphone, Monitor, Wifi, Shield, CheckCircle, XCircle } from 'lucide-react';
 import { useCamera } from '../hooks/useCamera';
 
 interface CameraCaptureProps {
@@ -33,7 +33,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
     console.log(`✅ File validation passed: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
 
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
       const result = e.target?.result;
       if (typeof result === 'string') {
@@ -59,10 +59,10 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
       console.warn('⚠️ Camera not ready for capture');
       return;
     }
-    
+
     console.log('📸 Initiating capture...');
     const imageData = captureImage();
-    
+
     if (imageData) {
       console.log('✅ Image captured and processed successfully');
       onImageCaptured(imageData);
@@ -115,7 +115,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
           <Shield className="mr-2" size={20} />
           System Status
         </h4>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
@@ -128,7 +128,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 Secure Connection (HTTPS)
               </span>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               {hasMediaDevices ? (
                 <CheckCircle className="text-green-400" size={16} />
@@ -140,7 +140,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
               </span>
             </div>
           </div>
-          
+
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
               {isMobile ? (
@@ -152,7 +152,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 {isMobile ? 'Mobile Device' : 'Desktop Device'}
               </span>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               <Wifi className="text-blue-400" size={16} />
               <span className="text-blue-300 text-sm">
@@ -171,7 +171,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
         <h2 className="text-3xl font-bold text-white mb-3">📷 Advanced Camera System</h2>
         <p className="text-orange-100 text-lg">World-class image capture with intelligent error handling</p>
       </div>
-      
+
       <div className="p-8">
         {!cameraState.isActive ? (
           <div className="text-center py-12">
@@ -181,13 +181,13 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 <Camera size={96} className="mx-auto text-gray-500/20 opacity-30" />
               </div>
             </div>
-            
+
             <h3 className="text-2xl font-bold text-white mb-4">🚀 Ready for World-Class Capture</h3>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
-              Our advanced camera system automatically optimizes settings for your device, 
+              Our advanced camera system automatically optimizes settings for your device,
               provides intelligent error recovery, and ensures the highest quality image capture possible.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <button
                 onClick={handleStartCamera}
@@ -197,9 +197,9 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 <Zap size={28} className="group-hover:animate-pulse" />
                 <span>🎥 Start Advanced Camera</span>
               </button>
-              
+
               <div className="text-gray-400 font-medium">OR</div>
-              
+
               <label className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-12 py-4 rounded-2xl font-bold text-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center space-x-3 cursor-pointer group">
                 <Upload size={28} className="group-hover:animate-bounce" />
                 <span>📁 Upload from Device</span>
@@ -215,7 +215,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
 
             {renderSystemStatus()}
             {renderCameraStatus()}
-            
+
             {/* Enhanced Features Info */}
             <div className="mt-8 p-6 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-400/20 rounded-3xl backdrop-blur-sm">
               <h4 className="text-emerald-300 font-bold text-lg mb-4">🌟 Advanced Features</h4>
@@ -263,19 +263,19 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 muted
                 style={{ transform: 'scaleX(-1)' }}
               />
-              
+
               {/* Camera Overlay */}
               <div className="absolute inset-0 border-4 border-dashed border-orange-400/40 rounded-3xl pointer-events-none">
                 <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center space-x-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
                   <span>🔴 LIVE</span>
                 </div>
-                
+
                 <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm text-white px-4 py-2 rounded-xl text-sm font-medium">
                   {cameraState.isReadyForCapture ? '✅ Ready' : '⏳ Preparing...'}
                 </div>
               </div>
-              
+
               {/* Center Focus Guide */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="w-64 h-64 border-2 border-white/30 rounded-2xl flex items-center justify-center">
@@ -285,7 +285,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                   </div>
                 </div>
               </div>
-              
+
               {/* Bottom Instructions */}
               <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm text-white px-4 py-3 rounded-xl text-center">
                 <p className="text-sm font-medium">
@@ -293,22 +293,21 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 </p>
               </div>
             </div>
-            
+
             {/* Control Buttons */}
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 onClick={handleCapture}
                 disabled={!cameraState.isReadyForCapture}
-                className={`px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform shadow-2xl flex items-center space-x-3 ${
-                  cameraState.isReadyForCapture
+                className={`px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform shadow-2xl flex items-center space-x-3 ${cameraState.isReadyForCapture
                     ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 hover:scale-105 hover:shadow-green-500/25'
                     : 'bg-gray-600 text-gray-300 cursor-not-allowed opacity-50'
-                }`}
+                  }`}
               >
                 <Capture size={28} />
                 <span>{cameraState.isReadyForCapture ? '📸 Capture Perfect Shot' : '⏳ Preparing Camera...'}</span>
               </button>
-              
+
               <button
                 onClick={stopCamera}
                 className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center space-x-3"
@@ -316,7 +315,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
                 <CameraOff size={28} />
                 <span>⏹️ Stop Camera</span>
               </button>
-              
+
               <label className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center space-x-3 cursor-pointer">
                 <Upload size={28} />
                 <span>📁 Upload Instead</span>
@@ -355,7 +354,7 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
             </div>
           </div>
         )}
-        
+
         {/* Hidden video element for camera initialization - always present in DOM */}
         {!cameraState.isActive && (
           <video

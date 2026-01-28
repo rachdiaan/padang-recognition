@@ -5,7 +5,7 @@ import { padangFoodDataset } from '../data/padangFoodDataset';
 export const DatasetInfo: React.FC = () => {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const categories = [...new Set(padangFoodDataset.map(food => food.category))];
-  const totalIngredients = [...new Set(padangFoodDataset.flatMap(food => food.ingredients))].length;
+  // Total unique ingredients across all dishes
   const regions = [...new Set(padangFoodDataset.map(food => food.region))];
   const spiceLevels = [...new Set(padangFoodDataset.map(food => food.spiceLevel))];
 
@@ -37,7 +37,7 @@ export const DatasetInfo: React.FC = () => {
           <h1 className="text-4xl font-bold text-white mb-4">🗄️ Dataset Information</h1>
           <p className="text-emerald-100 text-lg">Comprehensive Padang Food Recognition Database</p>
         </div>
-        
+
         <div className="p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             <div className="text-center p-6 bg-emerald-500/10 backdrop-blur-sm rounded-2xl border border-emerald-400/20">
@@ -45,19 +45,19 @@ export const DatasetInfo: React.FC = () => {
               <div className="text-3xl font-bold text-white">{padangFoodDataset.length}</div>
               <div className="text-sm text-gray-300 font-medium">Food Items</div>
             </div>
-            
+
             <div className="text-center p-6 bg-orange-500/10 backdrop-blur-sm rounded-2xl border border-orange-400/20">
               <Utensils className="mx-auto text-orange-400 mb-3" size={40} />
               <div className="text-3xl font-bold text-white">{categories.length}</div>
               <div className="text-sm text-gray-300 font-medium">Categories</div>
             </div>
-            
+
             <div className="text-center p-6 bg-blue-500/10 backdrop-blur-sm rounded-2xl border border-blue-400/20">
               <MapPin className="mx-auto text-blue-400 mb-3" size={40} />
               <div className="text-3xl font-bold text-white">{regions.length}</div>
               <div className="text-sm text-gray-300 font-medium">Regions</div>
             </div>
-            
+
             <div className="text-center p-6 bg-purple-500/10 backdrop-blur-sm rounded-2xl border border-purple-400/20">
               <Flame className="mx-auto text-purple-400 mb-3" size={40} />
               <div className="text-3xl font-bold text-white">{spiceLevels.length}</div>
@@ -74,11 +74,11 @@ export const DatasetInfo: React.FC = () => {
             <Info className="text-blue-400 mr-3" size={32} />
             Available Dishes
           </h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {padangFoodDataset.map((food) => {
               const isExpanded = expandedItems.has(food.id);
-              
+
               return (
                 <div key={food.id} className="bg-white/5 backdrop-blur-sm rounded-2xl shadow-lg border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-300">
                   <div className="flex items-start space-x-4 p-6">
@@ -100,7 +100,7 @@ export const DatasetInfo: React.FC = () => {
                           {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                         </button>
                       </div>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-3">
                         <span className="px-3 py-1 bg-blue-500/20 text-blue-300 text-xs rounded-full font-medium border border-blue-400/20">
                           {food.category}
@@ -113,13 +113,13 @@ export const DatasetInfo: React.FC = () => {
                           {food.cookingTime}
                         </span>
                       </div>
-                      
+
                       {isExpanded && (
                         <div className="space-y-4 pt-4 border-t border-white/10">
                           <p className="text-gray-300 text-sm leading-relaxed">
                             {food.description}
                           </p>
-                          
+
                           <div>
                             <h4 className="font-semibold text-white mb-2 text-sm">Ingredients:</h4>
                             <div className="flex flex-wrap gap-1">
@@ -133,7 +133,7 @@ export const DatasetInfo: React.FC = () => {
                               ))}
                             </div>
                           </div>
-                          
+
                           <div className="grid grid-cols-4 gap-3 pt-2">
                             <div className="text-center">
                               <div className="text-lg font-bold text-white">{food.nutritionalInfo.calories}</div>

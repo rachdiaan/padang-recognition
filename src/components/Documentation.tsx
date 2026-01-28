@@ -1,12 +1,12 @@
 import React from 'react';
-import { 
-  Brain, 
-  Camera, 
-  Database, 
-  Zap, 
-  Shield, 
-  Smartphone, 
-  Code, 
+import {
+  Brain,
+  Camera,
+  Database,
+  Zap,
+  Shield,
+  Smartphone,
+  Code,
   TrendingUp,
   CheckCircle,
   AlertCircle,
@@ -35,29 +35,29 @@ export const Documentation: React.FC = () => {
             Overview
           </h2>
           <p className="text-gray-300 text-lg leading-relaxed mb-6">
-            The Padang Food Recognition System is an advanced AI-powered application that uses computer vision 
+            The Padang Food Recognition System is an advanced AI-powered application that uses computer vision
             and machine learning to identify traditional Padang dishes from images captured through your device's camera.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center p-6 bg-orange-500/10 backdrop-blur-sm rounded-2xl border border-orange-400/20">
               <Brain className="mx-auto text-orange-400 mb-3" size={40} />
               <h3 className="font-bold text-white mb-2">AI-Powered</h3>
               <p className="text-gray-300 text-sm">Advanced neural networks for accurate food recognition</p>
             </div>
-            
+
             <div className="text-center p-6 bg-blue-500/10 backdrop-blur-sm rounded-2xl border border-blue-400/20">
               <Camera className="mx-auto text-blue-400 mb-3" size={40} />
               <h3 className="font-bold text-white mb-2">Real-time</h3>
               <p className="text-gray-300 text-sm">Instant image capture and processing capabilities</p>
             </div>
-            
+
             <div className="text-center p-6 bg-green-500/10 backdrop-blur-sm rounded-2xl border border-green-400/20">
               <Database className="mx-auto text-green-400 mb-3" size={40} />
               <h3 className="font-bold text-white mb-2">Rich Dataset</h3>
               <p className="text-gray-300 text-sm">Comprehensive Padang food database with detailed information</p>
             </div>
-            
+
             <div className="text-center p-6 bg-purple-500/10 backdrop-blur-sm rounded-2xl border border-purple-400/20">
               <Smartphone className="mx-auto text-purple-400 mb-3" size={40} />
               <h3 className="font-bold text-white mb-2">Mobile-First</h3>
@@ -74,7 +74,7 @@ export const Documentation: React.FC = () => {
             <Zap className="text-yellow-400 mr-3" size={32} />
             How to Use
           </h2>
-          
+
           <div className="space-y-8">
             <div className="flex items-start space-x-6">
               <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 text-white rounded-2xl flex items-center justify-center font-bold text-lg shadow-lg">
@@ -83,7 +83,7 @@ export const Documentation: React.FC = () => {
               <div>
                 <h3 className="text-xl font-bold text-white mb-3">Access Camera</h3>
                 <p className="text-gray-300 mb-4">
-                  Click the "Start Camera" button to enable your device's camera. The application will request 
+                  Click the "Start Camera" button to enable your device's camera. The application will request
                   camera permissions if not already granted.
                 </p>
                 <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-4 backdrop-blur-sm">
@@ -105,7 +105,7 @@ export const Documentation: React.FC = () => {
               <div>
                 <h3 className="text-xl font-bold text-white mb-3">Capture Image</h3>
                 <p className="text-gray-300 mb-4">
-                  Position your Padang dish within the camera frame and click the "Capture" button. 
+                  Position your Padang dish within the camera frame and click the "Capture" button.
                   The system works best with clear, well-lit images of individual dishes.
                 </p>
                 <div className="bg-green-500/10 border border-green-400/20 rounded-xl p-4 backdrop-blur-sm">
@@ -129,7 +129,7 @@ export const Documentation: React.FC = () => {
               <div>
                 <h3 className="text-xl font-bold text-white mb-3">View Results</h3>
                 <p className="text-gray-300 mb-4">
-                  The AI system will analyze your image and provide predictions with confidence scores. 
+                  The AI system will analyze your image and provide predictions with confidence scores.
                   Results include dish names, descriptions, ingredients, and cultural information.
                 </p>
                 <div className="bg-purple-500/10 border border-purple-400/20 rounded-xl p-4 backdrop-blur-sm">
@@ -154,7 +154,7 @@ export const Documentation: React.FC = () => {
             <Code className="text-indigo-400 mr-3" size={32} />
             Technical Specifications
           </h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-bold text-white mb-4">Frontend Technologies</h3>
@@ -177,25 +177,25 @@ export const Documentation: React.FC = () => {
                 </li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="text-xl font-bold text-white mb-4">AI & Machine Learning</h3>
               <ul className="space-y-3">
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">TensorFlow.js for inference</span>
+                  <span className="text-gray-300">TensorFlow.js with MobileNet</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">CNN architecture</span>
+                  <span className="text-gray-300">Feature extraction & visual matching</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">Real-time image processing</span>
+                  <span className="text-gray-300">Color & texture analysis</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-300">Client-side inference</span>
+                  <span className="text-gray-300">Client-side WebGL inference</span>
                 </li>
               </ul>
             </div>
@@ -210,7 +210,7 @@ export const Documentation: React.FC = () => {
             <Shield className="text-green-400 mr-3" size={32} />
             Browser Support & Requirements
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-bold text-white mb-4">Supported Browsers</h3>
@@ -233,7 +233,7 @@ export const Documentation: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-xl font-bold text-white mb-4">System Requirements</h3>
               <ul className="space-y-3">

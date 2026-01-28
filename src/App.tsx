@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChefHat, Sparkles } from 'lucide-react';
+import { ChefHat, Brain } from 'lucide-react';
 import { CameraCapture } from './components/CameraCapture';
 import { ImagePreview } from './components/ImagePreview';
 import { PredictionResults } from './components/PredictionResults';
@@ -13,30 +13,23 @@ function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [predictions, setPredictions] = useState<PredictionResult[]>([]);
   const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'dataset'>('home');
-  const { isLoading: modelLoading, isClassifying, classifyImage } = useImageClassification();
+  const { isLoading: modelLoading, isClassifying, modelLoadProgress, classifyImage } = useImageClassification();
 
   const handleImageCaptured = async (imageDataUrl: string) => {
-    console.log('🖼️ Image received in App component');
-    
     // Validate image data
     if (!imageDataUrl || !imageDataUrl.startsWith('data:image/')) {
-      console.error('❌ Invalid image data received');
       alert('❌ Invalid image data. Please try capturing or uploading again.');
       return;
     }
-    
+
     setCapturedImage(imageDataUrl);
     setPredictions([]);
-    
+
     try {
-      console.log('🧠 Starting AI classification...');
       const results = await classifyImage(imageDataUrl);
-      console.log('✅ Classification completed:', results.length, 'results');
       setPredictions(results);
-    } catch (error) {
-      console.error('❌ Classification failed:', error);
+    } catch {
       setPredictions([]);
-      console.warn('⚠️ Classification failed, but continuing with empty results');
     }
   };
 
@@ -59,18 +52,27 @@ function App() {
   const renderHomePage = () => (
     <>
       {modelLoading && (
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 mb-8 animate-pulse">
-          <div className="flex items-center space-x-4">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 mb-8">
+          <div className="flex items-center space-x-4 mb-4">
             <div className="relative">
-              <Sparkles className="text-blue-400 animate-spin" size={28} />
-              <div className="absolute inset-0 animate-ping">
-                <Sparkles className="text-blue-300/50" size={28} />
-              </div>
+              <Brain className="text-blue-400 animate-pulse" size={32} />
             </div>
-            <div>
-              <p className="text-white font-bold text-lg">🚀 Initializing AI System...</p>
-              <p className="text-gray-300">Loading advanced computer vision algorithms</p>
+            <div className="flex-1">
+              <p className="text-white font-bold text-lg">🧠 Loading MobileNet AI Model...</p>
+              <p className="text-gray-300 text-sm">Preparing TensorFlow.js for image recognition</p>
             </div>
+            <div className="text-blue-400 font-bold text-xl">{modelLoadProgress}%</div>
+          </div>
+          <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+            <div
+              className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-300 ease-out"
+              style={{ width: `${modelLoadProgress}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-xs text-gray-400 mt-2">
+            <span>Initializing WebGL</span>
+            <span>Loading weights</span>
+            <span>Ready</span>
           </div>
         </div>
       )}
@@ -83,14 +85,14 @@ function App() {
           ) : (
             <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
           )}
-          
+
           {!capturedImage && (
             <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-white/20">
               <div className="p-8 bg-gradient-to-br from-orange-600/80 via-red-600/80 to-pink-600/80 backdrop-blur-sm">
                 <h2 className="text-3xl font-bold text-white mb-3">How It Works</h2>
                 <p className="text-orange-100">AI-powered food recognition in 3 simple steps</p>
               </div>
-              
+
               <div className="p-8 space-y-8">
                 <div className="flex items-start space-x-6">
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 text-white rounded-2xl flex items-center justify-center font-bold text-lg shadow-lg">
@@ -101,7 +103,7 @@ function App() {
                     <p className="text-gray-300">Start camera for live capture or upload an image from your device storage</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-6">
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 text-white rounded-2xl flex items-center justify-center font-bold text-lg shadow-lg">
                     2
@@ -111,7 +113,7 @@ function App() {
                     <p className="text-gray-300">Take a photo with camera or select an existing image from your gallery</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-6">
                   <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 text-white rounded-2xl flex items-center justify-center font-bold text-lg shadow-lg">
                     3
@@ -129,8 +131,8 @@ function App() {
         {/* Right Column */}
         <div className="space-y-8">
           {capturedImage && (
-            <PredictionResults 
-              predictions={predictions} 
+            <PredictionResults
+              predictions={predictions}
               isLoading={isClassifying}
             />
           )}

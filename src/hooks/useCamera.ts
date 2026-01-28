@@ -8,7 +8,7 @@ export const useCamera = () => {
     stream: null,
     error: null
   });
-  
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const retryCountRef = useRef(0);
@@ -24,7 +24,7 @@ export const useCamera = () => {
           height: { ideal: 1080, max: 2160 },
           facingMode: { ideal: 'environment' },
           frameRate: { ideal: 60, min: 30 },
-          aspectRatio: { ideal: 16/9 }
+          aspectRatio: { ideal: 16 / 9 }
         },
         audio: false
       },
@@ -81,7 +81,7 @@ export const useCamera = () => {
     const isIOS = /ipad|iphone|ipod/.test(userAgent);
     const isAndroid = /android/.test(userAgent);
     const isDesktop = !isMobile;
-    
+
     return {
       isMobile,
       isIOS,
@@ -93,7 +93,7 @@ export const useCamera = () => {
   }, []);
 
   // Enhanced error message generator
-  const getEnhancedErrorMessage = useCallback((error: any, deviceInfo: any) => {
+  const getEnhancedErrorMessage = useCallback((error: { name?: string; message?: string }, deviceInfo: { supportsGetUserMedia: boolean; isMobile: boolean; isIOS: boolean; isAndroid: boolean; isSecureContext: boolean }) => {
     let message = 'Camera access failed. ';
     let suggestions: string[] = [];
 
@@ -119,7 +119,7 @@ export const useCamera = () => {
           deviceInfo.isMobile ? 'Check your browser settings for camera permissions' : 'Check browser settings under Privacy & Security'
         ];
         break;
-      
+
       case 'NotFoundError':
         message += 'No camera device found.';
         suggestions = [
@@ -129,7 +129,7 @@ export const useCamera = () => {
           'Restart your browser and try again'
         ];
         break;
-      
+
       case 'NotReadableError':
         message += 'Camera is being used by another application.';
         suggestions = [
@@ -139,7 +139,7 @@ export const useCamera = () => {
           deviceInfo.isMobile ? 'Close camera or video calling apps' : 'Close video conferencing software'
         ];
         break;
-      
+
       case 'OverconstrainedError':
         message += 'Camera settings not supported by your device.';
         suggestions = [
@@ -148,7 +148,7 @@ export const useCamera = () => {
           'Please wait while we adjust the camera settings'
         ];
         break;
-      
+
       case 'SecurityError':
         message += 'Camera access blocked for security reasons.';
         suggestions = [
@@ -157,7 +157,7 @@ export const useCamera = () => {
           'Try refreshing the page'
         ];
         break;
-      
+
       case 'AbortError':
         message += 'Camera access was interrupted.';
         suggestions = [
@@ -165,7 +165,7 @@ export const useCamera = () => {
           'Make sure no other app interrupted the process'
         ];
         break;
-      
+
       default:
         message += error.message || 'Unknown camera error occurred.';
         suggestions = [
@@ -189,7 +189,7 @@ export const useCamera = () => {
   // World-class camera initialization
   const startCamera = useCallback(async () => {
     console.log('🚀 Starting world-class camera system...');
-    
+
     const deviceInfo = detectDeviceCapabilities();
     console.log('📱 Device capabilities:', deviceInfo);
 
@@ -200,8 +200,8 @@ export const useCamera = () => {
     // Pre-flight checks
     if (!deviceInfo.supportsGetUserMedia) {
       const errorInfo = getEnhancedErrorMessage({ name: 'NotSupportedError' }, deviceInfo);
-      setCameraState(prev => ({ 
-        ...prev, 
+      setCameraState(prev => ({
+        ...prev,
         error: `${errorInfo.message}\n\nSuggestions:\n${errorInfo.suggestions.map(s => `• ${s}`).join('\n')}`
       }));
       return;
@@ -209,8 +209,8 @@ export const useCamera = () => {
 
     if (!deviceInfo.isSecureContext) {
       const errorInfo = getEnhancedErrorMessage({ name: 'SecurityError' }, deviceInfo);
-      setCameraState(prev => ({ 
-        ...prev, 
+      setCameraState(prev => ({
+        ...prev,
         error: `${errorInfo.message}\n\nSuggestions:\n${errorInfo.suggestions.map(s => `• ${s}`).join('\n')}`
       }));
       return;
@@ -219,14 +219,14 @@ export const useCamera = () => {
     // Progressive camera initialization with retries
     const attemptCameraAccess = async (attemptNumber: number): Promise<MediaStream> => {
       console.log(`📹 Camera attempt ${attemptNumber + 1}/${maxRetries + 1}`);
-      
+
       const constraints = getCameraConstraints(attemptNumber);
       console.log('🎛️ Using constraints:', constraints);
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         console.log('✅ Camera stream obtained successfully');
-        
+
         // Validate stream
         if (!stream || stream.getTracks().length === 0) {
           throw new Error('Invalid stream received');
@@ -239,15 +239,16 @@ export const useCamera = () => {
 
         console.log('📊 Video track settings:', videoTrack.getSettings());
         return stream;
-        
-      } catch (error: any) {
+
+      } catch (error) {
+        const err = error as Error & { name?: string };
         console.warn(`❌ Camera attempt ${attemptNumber + 1} failed:`, error);
-        
-        if (error.name === 'OverconstrainedError' && attemptNumber < maxRetries) {
+
+        if (err.name === 'OverconstrainedError' && attemptNumber < maxRetries) {
           console.log('🔄 Retrying with lower quality settings...');
           return attemptCameraAccess(attemptNumber + 1);
         }
-        
+
         throw error;
       }
     };
@@ -323,7 +324,7 @@ export const useCamera = () => {
       try {
         await video.play();
         console.log('✅ Video playing successfully');
-      } catch (playError: any) {
+      } catch (playError) {
         console.warn('🔇 Video play failed, trying muted:', playError);
         video.muted = true;
         try {
@@ -343,10 +344,10 @@ export const useCamera = () => {
         }, 10000);
 
         const checkReadiness = () => {
-          const isReady = video.readyState >= video.HAVE_CURRENT_DATA && 
-                          video.videoWidth > 0 && 
-                          video.videoHeight > 0;
-          
+          const isReady = video.readyState >= video.HAVE_CURRENT_DATA &&
+            video.videoWidth > 0 &&
+            video.videoHeight > 0;
+
           if (isReady) {
             console.log('✅ Video is ready for capture');
             console.log(`📊 Final video state: ${video.videoWidth}x${video.videoHeight}, readyState: ${video.readyState}`);
@@ -370,16 +371,17 @@ export const useCamera = () => {
 
       console.log('🎉 Camera system initialized successfully!');
 
-    } catch (error: any) {
+    } catch (error) {
+      const err = error instanceof Error ? error : { name: 'UnknownError', message: String(error) };
       console.error('💥 Camera initialization failed:', error);
-      
+
       // Clean up any partial stream
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
         streamRef.current = null;
       }
 
-      const errorInfo = getEnhancedErrorMessage(error, deviceInfo);
+      const errorInfo = getEnhancedErrorMessage(err, deviceInfo);
       setCameraState({
         isActive: false,
         isReadyForCapture: false,
@@ -392,7 +394,7 @@ export const useCamera = () => {
   // Enhanced camera stop with complete cleanup
   const stopCamera = useCallback(() => {
     console.log('🛑 Stopping camera system...');
-    
+
     // Stop all tracks
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => {
@@ -426,20 +428,20 @@ export const useCamera = () => {
   // World-class image capture with multiple fallbacks
   const captureImage = useCallback((): string | null => {
     console.log('📸 Attempting world-class image capture...');
-    
+
     if (!videoRef.current || !cameraState.isActive) {
       console.error('❌ Video not available or camera not active');
       return null;
     }
 
     const video = videoRef.current;
-    
+
     // Enhanced readiness check
     const isVideoReady = video.readyState >= video.HAVE_CURRENT_DATA &&
-                        video.videoWidth > 0 &&
-                        video.videoHeight > 0 &&
-                        !video.paused &&
-                        !video.ended;
+      video.videoWidth > 0 &&
+      video.videoHeight > 0 &&
+      !video.paused &&
+      !video.ended;
 
     if (!isVideoReady) {
       console.warn('⚠️ Video not fully ready, but attempting capture anyway');
@@ -449,11 +451,11 @@ export const useCamera = () => {
     try {
       // Create high-quality canvas
       const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d', { 
+      const ctx = canvas.getContext('2d', {
         alpha: false, // Better performance for photos
         willReadFrequently: false // Optimize for single capture
       });
-      
+
       if (!ctx) {
         console.error('❌ Failed to get canvas context');
         return null;
@@ -462,40 +464,40 @@ export const useCamera = () => {
       // Use actual video dimensions or fallback to display dimensions
       const width = video.videoWidth || video.clientWidth || 640;
       const height = video.videoHeight || video.clientHeight || 480;
-      
+
       // Set canvas to optimal size
       canvas.width = width;
       canvas.height = height;
-      
+
       console.log(`🎨 Canvas dimensions: ${canvas.width}x${canvas.height}`);
-      
+
       // Configure high-quality rendering
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
-      
+
       // Save context state
       ctx.save();
-      
+
       // Mirror image horizontally for natural selfie effect
       ctx.scale(-1, 1);
       ctx.translate(-canvas.width, 0);
-      
+
       // Draw video frame with high quality
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      
+
       // Restore context
       ctx.restore();
-      
+
       // Convert to high-quality JPEG
       const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
-      
+
       console.log(`✅ Image captured successfully! Size: ${(dataUrl.length / 1024).toFixed(1)}KB`);
-      
+
       // Clean up canvas
       canvas.remove();
-      
+
       return dataUrl;
-      
+
     } catch (error) {
       console.error('💥 Image capture failed:', error);
       return null;
@@ -518,7 +520,7 @@ export const useCamera = () => {
 
     const stream = streamRef.current;
     const videoTrack = stream.getVideoTracks()[0];
-    
+
     if (!videoTrack) return;
 
     const handleTrackEnded = () => {
@@ -532,7 +534,7 @@ export const useCamera = () => {
     };
 
     videoTrack.addEventListener('ended', handleTrackEnded);
-    
+
     return () => {
       videoTrack.removeEventListener('ended', handleTrackEnded);
     };

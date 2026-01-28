@@ -1,0 +1,81 @@
+{
+  "classes": [
+    {
+      "index": 0,
+      "folder": "ayam_goreng",
+      "id": "ayam-goreng",
+      "name": "Ayam Goreng",
+      "nameEn": "Fried Chicken"
+    },
+    {
+      "index": 1,
+      "folder": "ayam_pop",
+      "id": "ayam-pop",
+      "name": "Ayam Pop",
+      "nameEn": "Pop Chicken"
+    },
+    {
+      "index": 2,
+      "folder": "daging_rendang",
+      "id": "rendang",
+      "name": "Rendang",
+      "nameEn": "Rendang Beef"
+    },
+    {
+      "index": 3,
+      "folder": "dendeng_batokok",
+      "id": "dendeng-batokok",
+      "name": "Dendeng Batokok",
+      "nameEn": "Pounded Beef Jerky"
+    },
+    {
+      "index": 4,
+      "folder": "gulai_ikan",
+      "id": "gulai-ikan",
+      "name": "Gulai Ikan",
+      "nameEn": "Fish Curry"
+    },
+    {
+      "index": 5,
+      "folder": "gulai_tambusu",
+      "id": "gulai-tambusu",
+      "name": "Gulai Tambusu",
+      "nameEn": "Intestine Curry"
+    },
+    {
+      "index": 6,
+      "folder": "gulai_tunjang",
+      "id": "gulai-tunjang",
+      "name": "Gulai Tunjang",
+      "nameEn": "Beef Tendon Curry"
+    },
+    {
+      "index": 7,
+      "folder": "telur_balado",
+      "id": "telur-balado",
+      "name": "Telur Balado",
+      "nameEn": "Spicy Egg"
+    },
+    {
+      "index": 8,
+      "folder": "telur_dadar",
+      "id": "telur-dadar",
+      "name": "Telur Dadar Padang",
+      "nameEn": "Padang Omelette"
+    }
+  ],
+  "classIndices": {
+    "ayam_goreng": 0,
+    "ayam_pop": 1,
+    "daging_rendang": 2,
+    "dendeng_batokok": 3,
+    "gulai_ikan": 4,
+    "gulai_tambusu": 5,
+    "gulai_tunjang": 6,
+    "telur_balado": 7,
+    "telur_dadar": 8
+  },
+  "imageSize": 224,
+  "modelVersion": "1.0.0",
+  "accuracy": 0.8608247637748718
+}
