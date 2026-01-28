@@ -29,6 +29,10 @@ __pycache__/
 *.py[cod]
 .Python
 
+# Dataset
+dataset/
+!dataset/.gitkeep
+
 # Model files (too large for git)
 model/*.keras
 model/saved_model/

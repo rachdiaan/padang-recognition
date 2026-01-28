@@ -26,7 +26,9 @@ import json
 import numpy as np
 
 # Configuration
-DATASET_PATH = r"C:\Users\rachd\.cache\kagglehub\datasets\faldoae\padangfood\versions\1\dataset_padang_food"
+DATASET_PATH = "./dataset/padangfood/dataset_padang_food"
+if not os.path.exists(DATASET_PATH):
+    DATASET_PATH = "./dataset/padangfood"
 MODEL_OUTPUT_DIR = "./model"
 TFJS_OUTPUT_DIR = "./public/model"
 IMAGE_SIZE = (224, 224)

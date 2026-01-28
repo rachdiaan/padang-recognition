@@ -1,7 +1,9 @@
 import os
 
 
-dataset_path = r"C:\Users\rachd\.cache\kagglehub\datasets\faldoae\padangfood\versions\1\dataset_padang_food"
+dataset_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "padangfood", "dataset_padang_food")
+if not os.path.exists(dataset_path): # Fallback/Check
+    dataset_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "padangfood")
 
 print(f"Analyzing dataset at: {dataset_path}")
 
