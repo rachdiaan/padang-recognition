@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChefHat, Brain } from 'lucide-react';
 import { CameraCapture } from './components/CameraCapture';
 import { ImagePreview } from './components/ImagePreview';
@@ -77,7 +77,7 @@ function App() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column */}
         <div className="space-y-8">
           {!capturedImage ? (
