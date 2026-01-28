@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { ChefHat, Brain } from 'lucide-react';
+import { Brain, ChefHat } from 'lucide-react';
 import { CameraCapture } from './components/CameraCapture';
 import { ImagePreview } from './components/ImagePreview';
 import { PredictionResults } from './components/PredictionResults';
 import { DatasetInfo } from './components/DatasetInfo';
 import { Documentation } from './components/Documentation';
-import { FloatingNav } from './components/FloatingNav';
+import { Navigation } from './components/Navigation';
 import { useImageClassification } from './hooks/useImageClassification';
 import { PredictionResult } from './types/food';
-import { ThemeToggle } from './components/ThemeToggle';
 
 function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
@@ -147,28 +146,7 @@ function App() {
 
   return (
     <div className="min-vh-100 bg-gradient-premium position-relative overflow-hidden">
-      {/* Floating Navigation */}
-      <FloatingNav currentPage={currentPage} onPageChange={setCurrentPage} />
-
-      {/* Header */}
-      <header className="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 backdrop-blur sticky-top shadow-sm py-3">
-        <div className="container">
-          <div className="d-flex align-items-center justify-content-between w-100">
-            <div className="d-flex align-items-center">
-              <div className="p-2 bg-gradient-primary-info rounded-3 shadow-sm me-3">
-                <ChefHat className="text-white" size={24} />
-              </div>
-              <div>
-                <h1 className="h4 fw-bold text-white mb-0">
-                  Padang Food Recognition
-                </h1>
-                <p className="text-white-50 small mb-0">Advanced AI-powered food identification system</p>
-              </div>
-            </div>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
 
       {/* Main Content */}
       <main className="container py-5 position-relative z-1">
