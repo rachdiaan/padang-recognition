@@ -99,7 +99,7 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
           key={index}
           className="card-premium overflow-hidden hover-shadow transition-all"
         >
-          <div className="card-body p-4">
+          <div className="card-body p-3 p-md-4">
             <div className="d-flex justify-content-between align-items-start mb-3">
               <div>
                 <h2 className="card-title fw-bold mb-1 h3 text-primary">{prediction.food.name}</h2>
@@ -116,19 +116,19 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
             <p className="card-text text-dark opacity-75 lead fs-6">{prediction.food.description}</p>
 
             <div className="row g-3 mb-4">
-              <div className="col-4">
+              <div className="col-12 col-sm-4">
                 <div className="d-flex align-items-center text-muted small">
                   <MapPin className="me-1" size={14} />
                   {prediction.food.region}
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-6 col-sm-4">
                 <div className="d-flex align-items-center text-muted small">
                   <Clock className="me-1" size={14} />
                   {prediction.food.cookingTime}
                 </div>
               </div>
-              <div className="col-4">
+              <div className="col-6 col-sm-4">
                 <div className="d-flex align-items-center small">
                   <span className="text-muted me-2">Spice:</span>
                   {getSpiceLevelIcon(prediction.food.spiceLevel)}
@@ -150,20 +150,20 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
             <div className="card bg-white border border-light shadow-sm rounded-4">
               <div className="card-body py-3">
                 <h6 className="fw-bold mb-3 small text-uppercase text-secondary">Nutrition (per serving)</h6>
-                <div className="row text-center">
-                  <div className="col-3 border-end">
+                <div className="row text-center g-2">
+                  <div className="col-3 col-md-3 border-end">
                     <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.calories}</div>
                     <small className="text-muted" style={{ fontSize: '0.7rem' }}>KCAL</small>
                   </div>
-                  <div className="col-3 border-end">
+                  <div className="col-3 col-md-3 border-end">
                     <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.protein}g</div>
                     <small className="text-muted" style={{ fontSize: '0.7rem' }}>PROT</small>
                   </div>
-                  <div className="col-3 border-end">
+                  <div className="col-3 col-md-3 border-end">
                     <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.carbs}g</div>
                     <small className="text-muted" style={{ fontSize: '0.7rem' }}>CARB</small>
                   </div>
-                  <div className="col-3">
+                  <div className="col-3 col-md-3">
                     <div className="fw-bold h5 mb-0 text-primary">{prediction.food.nutritionalInfo.fat}g</div>
                     <small className="text-muted" style={{ fontSize: '0.7rem' }}>FAT</small>
                   </div>
