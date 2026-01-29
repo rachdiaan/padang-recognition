@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChefHat, Camera, FileText, Database, Menu, X } from 'lucide-react';
+import { ChefHat, Camera, FileText, Database, Menu, X, Lock } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface NavigationProps {
