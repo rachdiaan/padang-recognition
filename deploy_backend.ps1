@@ -5,7 +5,7 @@ Write-Host "Starting Deployment..."
 cmd /c "npm install -g netlify-cli"
 
 # Build
-cd server
+Set-Location server
 cmd /c "npm install"
 cmd /c "npm run build"
 
