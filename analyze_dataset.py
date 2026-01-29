@@ -1,8 +1,8 @@
 import os
 
 
-dataset_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "padangfood", "dataset_padang_food")
-if not os.path.exists(dataset_path): # Fallback/Check
+dataset_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "train")
+if not os.path.exists(dataset_path):
     dataset_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "padangfood")
 
 print(f"Analyzing dataset at: {dataset_path}")
