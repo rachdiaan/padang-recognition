@@ -8,7 +8,7 @@ import json
 import os
 import shutil
 
-MODEL_PATH = "./model/padang_food_model.keras"
+MODEL_PATH = "./model/padang_food_model_optimized.keras"
 SAVED_MODEL_PATH = "./model/saved_model_tfjs"
 OUTPUT_PATH = "./public/model"
 METADATA_PATH = "./public/model/metadata.json"
@@ -37,37 +37,66 @@ def convert_keras_to_tfjs():
     print("\n[3/4] Preparing output directory...")
     os.makedirs(OUTPUT_PATH, exist_ok=True)
     
-    # Create a simple model.json file for TensorFlow.js
-    # This will use the layers model format
-    print("\n[4/4] Creating TensorFlow.js model files...")
+    # Run conversion
+    print("\n[4/4] Running tensorflowjs_converter...")
+
+    # PATCH: Fix for numpy.object removal in newer numpy versions
+    try:
+        import numpy as np
+        if not hasattr(np, 'object'):
+            np.object = object
+    except ImportError:
+        pass
+
+    import subprocess
+    import sys
+
+    # Construct command to run via the current python executable to ensure env consistency
+    # We call the module directly if possible, or via shell command, but patching 'numpy'
+    # only works if we run it IN-PROCESS. 
+    # Since patching in-process is hard with subprocess, we will try to invoke the 
+    # tensorflowjs library directly from here.
     
-    # Save weights as JSON-compatible format
-    weights_data = []
-    for layer in model.layers:
-        layer_weights = layer.get_weights()
-        if layer_weights:
-            for w in layer_weights:
-                weights_data.append({
-                    "name": layer.name,
-                    "shape": list(w.shape),
-                    "dtype": str(w.dtype)
-                })
-    
-    print(f"   Model has {len(weights_data)} weight tensors")
-    
+    try:
+        from tensorflowjs.converters.converter import pip_main
+        
+        # Simulate command line arguments
+        sys.argv = [
+            "tensorflowjs_converter",
+            "--input_format=tf_saved_model",
+            SAVED_MODEL_PATH,
+            OUTPUT_PATH
+        ]
+        
+        print(f"   Invoking tensorflowjs internally with args: {sys.argv}")
+        pip_main()
+        print("   [OK] Conversion successful!")
+        
+    except Exception as e:
+        print(f"   [WARNING] In-process conversion failed: {e}")
+        print("   Attempting subprocess fallback (might fail if numpy issue persists)...")
+        
+        cmd = [
+            "tensorflowjs_converter",
+            "--input_format=tf_saved_model",
+            SAVED_MODEL_PATH,
+            OUTPUT_PATH
+        ]
+        
+        try:
+            result = subprocess.run(cmd, check=True, shell=(os.name == 'nt'), capture_output=True, text=True)
+            print("   [OK] Conversion successful!")
+            print(result.stdout)
+        except subprocess.CalledProcessError as e:
+            print(f"   [ERROR] Conversion failed with error code {e.returncode}")
+            print("   STDOUT:", e.stdout)
+            print("   STDERR:", e.stderr)
+        except Exception as e:
+            print(f"   [ERROR] Conversion failed: {e}")
+
     print("\n" + "=" * 60)
-    print("Conversion preparation complete!")
+    print("Conversion Complete!")
     print("=" * 60)
-    print("\nTo complete conversion, use one of these methods:")
-    print("\n1. Using pip with older Python:")
-    print("   pip install numpy<1.24 tensorflowjs")
-    print("   tensorflowjs_converter --input_format=keras_saved_model", SAVED_MODEL_PATH, OUTPUT_PATH)
-    print("\n2. Using Docker:")
-    print("   docker run -v .:/models tensorflow/tensorflow:latest-py3")
-    print("   pip install tensorflowjs")
-    print("   tensorflowjs_converter --input_format=keras /models/model/padang_food_model.keras /models/public/model")
-    print("\n3. Using Google Colab (recommended):")
-    print("   Upload the model to Colab and run the conversion there")
     
     return model
 
