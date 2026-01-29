@@ -80,66 +80,68 @@ function App() {
         </div>
       )}
 
-      <div className="row g-4">
-        {/* Left Column */}
-        <div className="col-lg-6">
+      <div className="row g-4 justify-content-center">
+        {/* Left Column - Camera */}
+        <div className={`transition-all duration-500 ${capturedImage ? 'col-lg-6' : 'col-lg-8 col-xl-6'}`}>
           {!capturedImage ? (
-            <CameraCapture onImageCaptured={handleImageCaptured} />
-          ) : (
-            <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
-          )}
-
-          {!capturedImage && (
-            <div className="card mt-4 shadow-sm border-0 overflow-hidden">
-              <div className="card-header bg-danger text-white p-4">
-                <h2 className="card-title fw-bold mb-0">How It Works</h2>
-                <p className="card-text opacity-75">AI-powered food recognition in 3 simple steps</p>
+            <div className="d-flex flex-column gap-4">
+              {/* Hero Text when idle */}
+              <div className="text-center mb-2">
+                <h1 className="display-5 fw-bold mb-2">Padang Food AI</h1>
+                <p className="lead text-secondary">Instantly identify authentic Padang dishes with a single photo</p>
               </div>
 
-              <div className="card-body p-4">
-                <div className="d-flex mb-4">
-                  <div className="flex-shrink-0 bg-danger text-white rounded-3 d-flex align-items-center justify-content-center fw-bold fs-5 shadow-sm" style={{ width: '48px', height: '48px' }}>
-                    1
-                  </div>
-                  <div className="ms-3">
-                    <h5 className="fw-bold mb-1">Choose Input Method</h5>
-                    <p className="text-muted small">Start camera for live capture or upload an image from your device storage</p>
-                  </div>
-                </div>
+              <CameraCapture onImageCaptured={handleImageCaptured} />
 
-                <div className="d-flex mb-4">
-                  <div className="flex-shrink-0 bg-danger text-white rounded-3 d-flex align-items-center justify-content-center fw-bold fs-5 shadow-sm" style={{ width: '48px', height: '48px' }}>
-                    2
-                  </div>
-                  <div className="ms-3">
-                    <h5 className="fw-bold mb-1">Capture or Upload</h5>
-                    <p className="text-muted small">Take a photo with camera or select an existing image from your gallery</p>
-                  </div>
-                </div>
-
-                <div className="d-flex">
-                  <div className="flex-shrink-0 bg-danger text-white rounded-3 d-flex align-items-center justify-content-center fw-bold fs-5 shadow-sm" style={{ width: '48px', height: '48px' }}>
-                    3
-                  </div>
-                  <div className="ms-3">
-                    <h5 className="fw-bold mb-1">Get Results</h5>
-                    <p className="text-muted small">Receive instant AI predictions with confidence scores and detailed information</p>
+              {/* How It Works - Compact Horizontal Version */}
+              <div className="card shadow-sm border-0 bg-white bg-opacity-50 backdrop-blur">
+                <div className="card-body p-4">
+                  <h6 className="fw-bold text-uppercase text-secondary mb-3 small letter-spacing-1">How it works</h6>
+                  <div className="row g-3 text-center">
+                    <div className="col-4">
+                      <div className="mb-2">
+                        <div className="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle p-3">
+                          <span className="fw-bold">1</span>
+                        </div>
+                      </div>
+                      <small className="fw-bold d-block">Start Camera</small>
+                    </div>
+                    <div className="col-4">
+                      <div className="mb-2">
+                        <div className="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle p-3">
+                          <span className="fw-bold">2</span>
+                        </div>
+                      </div>
+                      <small className="fw-bold d-block">Capture Dish</small>
+                    </div>
+                    <div className="col-4">
+                      <div className="mb-2">
+                        <div className="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle p-3">
+                          <span className="fw-bold">3</span>
+                        </div>
+                      </div>
+                      <small className="fw-bold d-block">Get Results</small>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          ) : (
+            <div className="h-100">
+              <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
+            </div>
           )}
         </div>
 
-        {/* Right Column */}
-        <div className="col-lg-6">
-          {capturedImage && (
+        {/* Right Column - Results (Only visible when image captured) */}
+        {capturedImage && (
+          <div className="col-lg-6 animation-slide-in-right">
             <PredictionResults
               predictions={predictions}
               isLoading={isClassifying}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

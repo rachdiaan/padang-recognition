@@ -112,28 +112,111 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
   };
 
   return (
-    <div className="card border-0 bg-dark text-white overflow-hidden rounded-4 shadow-lg">
-      {!cameraState.isActive ? (
-        <div className="card-body p-5 text-center">
-          <div className="mb-4">
-            <CameraOff size={64} className="text-secondary opacity-50 mx-auto" />
+    <div className="card border-0 bg-dark text-white overflow-hidden rounded-4 shadow-lg position-relative">
+      {/* Unified Video Element - Always rendered but possibly hidden */}
+      <div className="position-relative bg-black" style={{ minHeight: '400px' }}>
+        <video
+          ref={videoRef}
+          className={`w-100 h-100 object-cover ${cameraState.isActive ? 'opacity-100' : 'opacity-0'}`}
+          autoPlay
+          playsInline
+          muted
+          style={{
+            transform: 'scaleX(-1)',
+            height: '400px',
+            position: cameraState.isActive ? 'relative' : 'absolute',
+            top: 0,
+            left: 0
+          }}
+        />
+
+        {/* State: Camera Inactive - Show Enable UI */}
+        {!cameraState.isActive && (
+          <div className="card-body p-5 text-center position-relative z-1 h-100 d-flex flex-column justify-content-center bg-dark">
+            <div className="mb-4">
+              <CameraOff size={64} className="text-secondary opacity-50 mx-auto" />
+            </div>
+            <h3 className="card-title fw-bold mb-3">Camera Access Needed</h3>
+            <p className="card-text text-white-50 mb-4 px-lg-5">
+              To identify Padang food, we need access to your camera.
+              Please allow permission when prompted or check your browser settings.
+            </p>
+            <div className="d-grid gap-3 d-sm-flex justify-content-center">
+              <button
+                onClick={handleStartCamera}
+                className="btn btn-primary btn-lg px-4 fw-bold rounded-pill"
+              >
+                <Camera className="me-2" size={20} />
+                Enable Camera
+              </button>
+              <label className="btn btn-outline-light btn-lg px-4 fw-bold rounded-pill">
+                <Upload className="me-2" size={20} />
+                Upload Image
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="d-none"
+                />
+              </label>
+            </div>
           </div>
-          <h3 className="card-title fw-bold mb-3">Camera Access Needed</h3>
-          <p className="card-text text-white-50 mb-4 px-lg-5">
-            To identify Padang food, we need access to your camera.
-            Please allow permission when prompted or check your browser settings.
-          </p>
-          <div className="d-grid gap-3 d-sm-flex justify-content-center">
+        )}
+
+        {/* State: Camera Active - Show Overlay Elements */}
+        {cameraState.isActive && (
+          <>
+            <div className="position-absolute top-0 start-0 m-3 d-flex align-items-center bg-dark bg-opacity-75 text-white px-3 py-1 rounded-pill small fw-bold">
+              <div className="spinner-grow spinner-grow-sm text-danger me-2" role="status"></div>
+              LIVE
+            </div>
+
+            <div className="position-absolute top-0 end-0 m-3 bg-dark bg-opacity-75 text-white px-3 py-1 rounded-pill small">
+              {cameraState.isReadyForCapture ? '✅ Ready' : '⏳ Preparing...'}
+            </div>
+
+            {/* Center Focus Guide */}
+            <div className="position-absolute top-50 start-50 translate-middle pe-none">
+              <div className="border border-2 border-white border-opacity-50 rounded-3 d-flex align-items-center justify-content-center transition-all" style={{ width: 'min(250px, 75vw)', height: 'min(250px, 75vw)' }}>
+                <div className="text-center text-white text-opacity-75">
+                  <Camera size={32} className="mb-2" />
+                  <p className="small fw-bold mb-0">Center dish here</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Instructions Footer */}
+            <div className="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-black-bottom text-center text-white small">
+              Position your Padang dish in the center • Ensure good lighting
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Controls Section - Only visible when camera is trying to be active or is active */}
+      <div className="p-4 bg-dark border-top border-secondary">
+        {cameraState.isActive ? (
+          <div className="d-flex flex-wrap justify-content-center gap-3">
             <button
-              onClick={handleStartCamera}
-              className="btn btn-primary btn-lg px-4 fw-bold rounded-pill"
+              onClick={handleCapture}
+              disabled={!cameraState.isReadyForCapture}
+              className={`btn btn-lg fw-bold rounded-pill px-5 d-flex align-items-center ${cameraState.isReadyForCapture ? 'btn-success' : 'btn-secondary disabled'}`}
             >
-              <Camera className="me-2" size={20} />
-              Enable Camera
+              <Capture size={24} className="me-2" />
+              {cameraState.isReadyForCapture ? 'Capture Shot' : 'Preparing...'}
             </button>
-            <label className="btn btn-outline-light btn-lg px-4 fw-bold rounded-pill">
-              <Upload className="me-2" size={20} />
-              Upload Image
+
+            <button
+              onClick={stopCamera}
+              className="btn btn-outline-light btn-lg rounded-pill px-4 d-flex align-items-center"
+            >
+              <CameraOff size={24} className="me-2" />
+              Stop
+            </button>
+
+            <label className="btn btn-primary btn-lg rounded-pill px-4 d-flex align-items-center">
+              <Upload size={24} className="me-2" />
+              Upload
               <input
                 type="file"
                 accept="image/*"
@@ -142,116 +225,16 @@ export const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured })
               />
             </label>
           </div>
-        </div>
-      ) : (
-        <div className="card-body p-0">
-          <div className="position-relative bg-black" style={{ minHeight: '400px' }}>
-            {/* Live Camera Feed */}
-            <div className={`w-100 h-100 transition-fade ${cameraState.isActive ? 'opacity-100' : 'opacity-0'}`}>
-              <video
-                ref={videoRef}
-                className="w-100 h-100 object-cover"
-                autoPlay
-                playsInline
-                muted
-                style={{ transform: 'scaleX(-1)', height: '400px' }}
-              />
-
-              {/* Camera Overlay */}
-              {cameraState.isActive && (
-                <>
-                  <div className="position-absolute top-0 start-0 m-3 d-flex align-items-center bg-dark bg-opacity-75 text-white px-3 py-1 rounded-pill small fw-bold">
-                    <div className="spinner-grow spinner-grow-sm text-danger me-2" role="status"></div>
-                    LIVE
-                  </div>
-
-                  <div className="position-absolute top-0 end-0 m-3 bg-dark bg-opacity-75 text-white px-3 py-1 rounded-pill small">
-                    {cameraState.isReadyForCapture ? '✅ Ready' : '⏳ Preparing...'}
-                  </div>
-
-                  {/* Center Focus Guide */}
-                  <div className="position-absolute top-50 start-50 translate-middle pe-none">
-                    <div className="border border-2 border-white border-opacity-50 rounded-3 d-flex align-items-center justify-content-center transition-all" style={{ width: 'min(250px, 75vw)', height: 'min(250px, 75vw)' }}>
-                      <div className="text-center text-white text-opacity-75">
-                        <Camera size={32} className="mb-2" />
-                        <p className="small fw-bold mb-0">Center dish here</p>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Instructions */}
-            <div className="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-black-bottom text-center text-white small">
-              Position your Padang dish in the center • Ensure good lighting
-            </div>
+        ) : (
+          <div className="text-center py-2">
+            <p className="text-white-50 mb-0 small">Privacy Note: Images are processed locally on your device.</p>
           </div>
+        )}
 
-          {/* Controls */}
-          <div className="p-4 bg-dark">
-            {cameraState.isActive ? (
-              <div className="d-flex flex-wrap justify-content-center gap-3">
-                <button
-                  onClick={handleCapture}
-                  disabled={!cameraState.isReadyForCapture}
-                  className={`btn btn-lg fw-bold rounded-pill px-5 d-flex align-items-center ${cameraState.isReadyForCapture ? 'btn-success' : 'btn-secondary disabled'}`}
-                >
-                  <Capture size={24} className="me-2" />
-                  {cameraState.isReadyForCapture ? 'Capture Shot' : 'Preparing...'}
-                </button>
-
-                <button
-                  onClick={stopCamera}
-                  className="btn btn-outline-light btn-lg rounded-pill px-4 d-flex align-items-center"
-                >
-                  <CameraOff size={24} className="me-2" />
-                  Stop
-                </button>
-
-                <label className="btn btn-primary btn-lg rounded-pill px-4 d-flex align-items-center">
-                  <Upload size={24} className="me-2" />
-                  Upload
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="d-none"
-                  />
-                </label>
-              </div>
-            ) : (
-              <div className="text-center py-4">
-                <p className="text-white-50 mb-0">Camera is initializing...</p>
-              </div>
-            )}
-
-            {/* Camera Info */}
-            <div className="mt-4 pt-3 border-top border-secondary">
-              <div className="d-flex align-items-center text-white-50 small mb-2">
-                <Camera size={16} className="me-2 text-info" />
-                <span>Camera Information</span>
-              </div>
-              <div className="row g-2 small text-light">
-                <div className="col-4"><span className="text-secondary">Status:</span> <span className="text-white fw-bold">{cameraState.isReadyForCapture ? 'Ready' : 'Init'}</span></div>
-                <div className="col-4"><span className="text-secondary">Mode:</span> <span className="text-white fw-bold">HQ</span></div>
-              </div>
-            </div>
-
-            {renderSystemStatus()}
-            {renderCameraStatus()}
-          </div>
-        </div>
-      )}
-
-      {/* Persistent Hidden Video */}
-      <video
-        ref={videoRef}
-        className="d-none"
-        autoPlay
-        playsInline
-        muted
-      />
+        {/* System Status Indicators in Footer */}
+        {renderSystemStatus()}
+        {renderCameraStatus()}
+      </div>
     </div>
   );
 };

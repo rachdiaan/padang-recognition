@@ -345,11 +345,25 @@ export const useImageClassification = () => {
     results.sort((a, b) => b.probability - a.probability);
     const topResults = results.slice(0, 4);
 
-    // Map to food items
+    // Map to food items using metadata if available, otherwise fallback
     return topResults.map(result => {
-      const food = getFoodByClassIndex(result.index);
+      let food: FoodItem | undefined;
+
+      // Try to find food ID from metadata first (More robust)
+      if (metadataRef.current?.classes) {
+        const classMeta = metadataRef.current.classes.find(modeClass => modeClass.index === result.index);
+        if (classMeta) {
+          food = padangFoodDataset.find(f => f.id === classMeta.id);
+        }
+      }
+
+      // Fallback to hardcoded map if metadata fails
       if (!food) {
-        // Fallback to dataset by index
+        food = getFoodByClassIndex(result.index);
+      }
+
+      if (!food) {
+        // Ultimate fallback
         return {
           food: padangFoodDataset[result.index % padangFoodDataset.length],
           confidence: result.probability,
@@ -376,7 +390,7 @@ export const useImageClassification = () => {
 
       // Create image element
       const img = new Image();
-      img.crossOrigin = 'anonymous';
+      img.crossOrigin = 'anonymous'; // Needed for external images but harmless for data URLs
 
       await new Promise<void>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Image loading timeout')), 10000);
@@ -396,13 +410,22 @@ export const useImageClassification = () => {
       const ctx = canvas.getContext('2d')!;
       canvas.width = 224;
       canvas.height = 224;
-      ctx.drawImage(img, 0, 0, 224, 224);
+
+      // IMPLEMENTATION: Center Crop Strategy
+      // This preserves aspect ratio features (plates, shapes) instead of squashing
+      const minDimension = Math.min(img.width, img.height);
+      const startX = (img.width - minDimension) / 2;
+      const startY = (img.height - minDimension) / 2;
+
+      // Draw cropped center square to canvas
+      ctx.drawImage(img, startX, startY, minDimension, minDimension, 0, 0, 224, 224);
 
       let predictions: PredictionResult[];
 
       // Prepare tensor for model
       const tensor = tf.tidy(() => {
         const imgTensor = tf.browser.fromPixels(canvas);
+        // Normalization: [0, 1] seems correct based on training script (rescale=1./255)
         const normalized = imgTensor.toFloat().div(255);
         return normalized.expandDims(0);
       });
@@ -410,8 +433,10 @@ export const useImageClassification = () => {
       try {
         // Use custom model if available
         if (isCustomModelRef.current && modelRef.current) {
+          console.log('🤖 Using Custom Model for Inference');
           predictions = await classifyWithCustomModel(tensor);
         } else if (modelRef.current) {
+          console.log('⚠️ Using Fallback MobileNet + Heuristics');
           // Use MobileNet for feature extraction
           const features = await modelRef.current.predict(tensor) as tf.Tensor;
           const featureArray = await features.data();
@@ -451,7 +476,8 @@ export const useImageClassification = () => {
 
       return predictions;
 
-    } catch {
+    } catch (error) {
+      console.error('Classification error:', error);
       // Fallback: return predictions based on most common Padang dishes
       return padangFoodDataset.slice(0, 3).map((food, index) => ({
         food,
