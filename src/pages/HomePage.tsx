@@ -71,16 +71,16 @@ export const HomePage: React.FC = () => {
 
                             {!capturedImage && (
                                 <div className="text-center mb-5 animation-fade-in-up">
-                                    <h1 className="display-4 fw-800 text-white mb-3 letter-spacing-tight text-shadow-sm">
+                                    <h1 className="display-4 fw-800 mb-3 letter-spacing-tight text-shadow-sm text-adaptive">
                                         Padang <span className="text-gradient-primary">Cuisine</span> Recognition
                                     </h1>
-                                    <p className="lead text-white-50 mx-auto" style={{ maxWidth: '600px' }}>
+                                    <p className="lead text-secondary mx-auto" style={{ maxWidth: '600px' }}>
                                         Experience the power of AI. Instantly identify authentic Padang dishes with professional-grade accuracy directly from your browser.
                                     </p>
                                 </div>
                             )}
 
-                            <div className={`card border-0 bg-dark bg-opacity-50 backdrop-blur-lg shadow-2xl rounded-5 overflow-hidden transition-all duration-500 hover-transform-sm ${!capturedImage ? 'mx-auto' : ''}`} style={{ maxWidth: capturedImage ? '100%' : '800px' }}>
+                            <div className={`card border-0 bg-glass shadow-2xl rounded-5 overflow-hidden transition-all duration-500 hover-transform-sm ${!capturedImage ? 'mx-auto' : ''}`} style={{ maxWidth: capturedImage ? '100%' : '800px' }}>
                                 <div className="card-body p-2 p-md-3">
                                     {capturedImage ? (
                                         <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
@@ -99,10 +99,10 @@ export const HomePage: React.FC = () => {
                                         { icon: "🍛", title: "9 Classes", desc: "Detects popular Padang dishes" }
                                     ].map((feature, idx) => (
                                         <div key={idx} className="col-md-4 col-sm-6" style={{ maxWidth: '300px' }}>
-                                            <div className="p-3 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10 text-center h-100 hover-bg-opacity-10 transition-all cursor-default">
+                                            <div className="p-3 rounded-4 bg-glass text-center h-100 hover-bg-opacity-10 transition-all cursor-default shadow-sm border-0">
                                                 <div className="fs-2 mb-2">{feature.icon}</div>
-                                                <h6 className="fw-bold text-white mb-1">{feature.title}</h6>
-                                                <p className="text-white-50 small mb-0">{feature.desc}</p>
+                                                <h6 className="fw-bold mb-1 text-adaptive">{feature.title}</h6>
+                                                <p className="text-secondary small mb-0">{feature.desc}</p>
                                             </div>
                                         </div>
                                     ))}

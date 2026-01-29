@@ -48,6 +48,26 @@ export const PredictionResults: React.FC<PredictionResultsProps> = ({ prediction
     );
   }
 
+  // NON-FOOD DETECTION CHECK
+  // If the top prediction is below 45% confidence, we assume it's not a known Padang food.
+  const topConfidence = predictions[0]?.confidence || 0;
+  if (topConfidence < 0.45) { // Using hardcoded value to avoid import cycles if not carefully managed, or imports can be added.
+    return (
+      <div className="card border-0 shadow bg-danger bg-opacity-10">
+        <div className="card-body p-5 text-center">
+          <div className="mb-3 text-danger">
+            <Flame size={64} />
+          </div>
+          <h3 className="fw-bold text-danger mb-2">MOHON UPLOAD FOTO MAKANAN!</h3>
+          <p className="text-dark opacity-75 mb-0">
+            Kami tidak dapat mengenali gambar ini sebagai Masakan Padang.<br />
+            Pastikan foto jelas, tidak blur, dan menampakkan makanan.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const getSpiceLevelColor = (level: string) => {
     switch (level.toLowerCase()) {
       case 'mild': return 'text-success';

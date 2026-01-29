@@ -7,6 +7,7 @@ import { PredictionResult, FoodItem } from '../types/food';
 const USE_CUSTOM_MODEL = true; // Custom model now available!
 const CUSTOM_MODEL_URL = '/model/model.json';
 const MOBILENET_URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v2_100_224/feature_vector/3/default/1';
+export const CONFIDENCE_THRESHOLD = 0.45; // Threshold for "Non-Food" detection
 
 // Model metadata interface
 interface ModelMetadata {

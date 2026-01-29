@@ -1,31 +1,21 @@
-# Deploy Backend to Netlify Functions
-Write-Host "🚀 Starting Backend Deployment to Netlify..." -ForegroundColor Cyan
+# Deploy Backend to Netlify
+Write-Host "Starting Deployment..."
 
-# 1. Check/Install Netlify CLI
-if (-not (Get-Command "netlify" -ErrorAction SilentlyContinue)) {
-    Write-Host "📦 Installing Netlify CLI..." -ForegroundColor Yellow
-    npm install -g netlify-cli
-}
+# Install CLI if needed (using cmd /c to be safe)
+cmd /c "npm install -g netlify-cli"
 
-# 2. Build Server
-Write-Host "🔨 Building Backend..." -ForegroundColor Yellow
+# Build
 cd server
-npm install
-npm run build
+cmd /c "npm install"
+cmd /c "npm run build"
 
-# 3. Deploy
-Write-Host "☁️  Deploying to Netlify..." -ForegroundColor Yellow
-Write-Host "⚠️  If prompted to login, please allow access in your browser." -ForegroundColor Magenta
-Write-Host "⚠️  Select 'Create & configure new site' if asked." -ForegroundColor Magenta
-
-# Initialize/Link site if not checks
+# Deploy
+Write-Host "Deploying..."
 if (-not (Test-Path ".netlify")) {
     cmd /c "netlify init"
 }
 
-# Deploy to production
 cmd /c "netlify deploy --prod"
 
-Write-Host "✅ Deployment Process Complete!" -ForegroundColor Green
-Write-Host "👉 Copy the 'Website URL' + '/.netlify/functions/api' and update your Frontend VITE_API_URL" -ForegroundColor Cyan
-Read-Host -Prompt "Press Enter to exit"
+Write-Host "Done! Update your Frontend VITE_API_URL."
+Read-Host "Press Enter"
