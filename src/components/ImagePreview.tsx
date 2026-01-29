@@ -27,8 +27,8 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({ imageDataUrl, onClos
           <img
             src={imageDataUrl}
             alt="Captured food"
-            className="w-100 object-cover"
-            style={{ height: '320px', objectFit: 'cover' }}
+            className="w-100 h-auto d-block"
+            style={{ maxHeight: '80vh', objectFit: 'contain' }}
             onError={(e) => {
               console.error('Failed to display captured image');
               e.currentTarget.style.display = 'none';

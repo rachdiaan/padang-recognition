@@ -67,7 +67,7 @@ export const HomePage: React.FC = () => {
                     <div className={`row g-4 align-items-center justify-content-center transition-all duration-700 ${capturedImage ? 'pb-5' : 'py-5'}`}>
 
                         {/* Left Column: Camera / Input */}
-                        <div className={`transition-all duration-700 ${capturedImage ? 'col-lg-5 order-lg-1' : 'col-lg-8 col-xl-7'}`}>
+                        <div className={`transition-all duration-700 ${capturedImage ? 'col-12 order-1' : 'col-lg-8 col-xl-7'}`}>
 
                             {!capturedImage && (
                                 <div className="text-center mb-5 animation-fade-in-up">
@@ -80,7 +80,7 @@ export const HomePage: React.FC = () => {
                                 </div>
                             )}
 
-                            <div className={`card border-0 bg-glass shadow-2xl rounded-5 overflow-hidden transition-all duration-500 hover-transform-sm ${!capturedImage ? 'mx-auto' : ''}`} style={{ maxWidth: capturedImage ? '100%' : '800px' }}>
+                            <div className={`card border-0 bg-glass shadow-2xl rounded-5 overflow-hidden transition-all duration-500 hover-transform-sm ${!capturedImage ? 'mx-auto' : ''}`} style={{ maxWidth: '100%' }}>
                                 <div className="card-body p-2 p-md-3">
                                     {capturedImage ? (
                                         <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
@@ -110,9 +110,9 @@ export const HomePage: React.FC = () => {
                             )}
                         </div>
 
-                        {/* Right Column: Results (Appears on side) */}
+                        {/* Right Column (now Bottom): Results */}
                         {capturedImage && (
-                            <div className="col-lg-5 col-xl-4 order-lg-2 animation-slide-in-right">
+                            <div className="col-12 col-md-10 order-2 animation-slide-in-right">
                                 <div className="sticky-top" style={{ top: '100px', zIndex: 10 }}>
                                     <PredictionResults
                                         predictions={predictions}
