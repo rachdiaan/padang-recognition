@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 import { ChefHat, Camera, FileText, Database, Menu, X, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
 
 interface NavigationProps {
-    currentPage: 'home' | 'docs' | 'dataset' | 'admin';
-    onPageChange: (page: 'home' | 'docs' | 'dataset' | 'admin') => void;
+    currentPage: string;
 }
 
-export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
+export const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
 
     const navItems = [
-        { id: 'home' as const, label: 'Camera', icon: Camera },
-        { id: 'docs' as const, label: 'Documentation', icon: FileText },
-        { id: 'dataset' as const, label: 'Dataset', icon: Database },
-        { id: 'admin' as const, label: 'Admin', icon: Lock },
+        { id: 'home', label: 'Camera', icon: Camera, path: '/' },
+        { id: 'docs', label: 'Documentation', icon: FileText, path: '/docs' },
+        { id: 'dataset', label: 'Dataset', icon: Database, path: '/dataset' },
+        { id: 'admin', label: 'Admin', icon: Lock, path: '/admin/dashboard' },
     ];
+
+    const handleNavigate = (path: string) => {
+        navigate(path);
+        setIsOpen(false);
+    };
 
     return (
         <header className="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 backdrop-blur sticky-top shadow-sm py-3 transition-all">
             <div className="container">
                 {/* Brand */}
-                <div className="d-flex align-items-center cursor-pointer" onClick={() => onPageChange('home')}>
+                <div className="d-flex align-items-center cursor-pointer" onClick={() => handleNavigate('/')}>
                     <div className="p-2 bg-gradient-primary-info rounded-3 shadow-sm me-3">
                         <ChefHat className="text-white" size={24} />
                     </div>
@@ -53,10 +59,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChang
                             return (
                                 <li key={item.id} className="nav-item">
                                     <button
-                                        onClick={() => {
-                                            onPageChange(item.id);
-                                            setIsOpen(false);
-                                        }}
+                                        onClick={() => handleNavigate(item.path)}
                                         className={`
                       nav-link btn btn-link text-start text-decoration-none d-flex align-items-center gap-2 px-3 py-2 rounded-pill transition-all w-100
                       ${isActive ? 'bg-white bg-opacity-10 text-white fw-medium' : 'text-white-50 hover-text-white'}
