@@ -27,3 +27,10 @@ Update `src/components/admin/AdminLogin.tsx`:
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 // Use API_URL in your fetch calls
 ```
+
+### 3. Configure Netlify (Frontend)
+1.  Go to your **Netlify Dashboard** -> Site Settings.
+2.  **Environment Variables** -> **Add a variable**.
+3.  Key: `VITE_API_URL`
+4.  Value: (The URL of your deployed Backend from Step 1, e.g., `https://padang-server.onrender.com`) - **NO trailing slash** `/`
+5.  **Trigger a new deploy** (or Retry Deploy) for changes to take effect.
