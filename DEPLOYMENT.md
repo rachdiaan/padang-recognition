@@ -16,6 +16,19 @@ We recommend **Render.com** (it has a free tier for Node.js).
     *   `NODE_ENV`: `production`
     *   `MONGO_URI`: (Your MongoDB Connection String)
     *   `JWT_SECRET`: (Your Secret Key)
+
+### 💡 How to get these values:
+1.  **MONGO_URI**:
+    *   Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+    *   Create a Cluster (Shared/Free).
+    *   Go to "Database Access" -> Add New Database User (remember username/password).
+    *   Go to "Network Access" -> Allow Access from Anywhere (`0.0.0.0/0`).
+    *   Go to "Database" -> Connect -> Drivers -> Copy the connection string.
+    *   Replace `<password>` with your actual password.
+2.  **JWT_SECRET**:
+    *   This can be any random long string (password).
+    *   Example: `rahasia_padang_123_abc_!@#` or generate a UUID.
+
 9.  Click **Create Web Service**.
 
 ## 2. Connect Frontend
