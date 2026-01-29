@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Lock, User } from 'lucide-react';
 
-export const AdminLogin: React.FC = () => {
+interface AdminLoginProps {
+    onLogin: () => void;
+}
+
+export const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -24,10 +28,9 @@ export const AdminLogin: React.FC = () => {
             const data = await response.json();
 
             if (response.ok) {
-                alert(`Welcome, ${data.username}! Token: ${data.token.substring(0, 10)}... (Check console)`);
                 console.log('Login Success:', data);
-                // Save token to localStorage here
                 localStorage.setItem('adminToken', data.token);
+                onLogin();
             } else {
                 setError(data.message || 'Login failed');
             }

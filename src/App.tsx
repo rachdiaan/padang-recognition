@@ -7,6 +7,7 @@ import { DatasetInfo } from './components/DatasetInfo';
 import { Documentation } from './components/Documentation';
 import { Navigation } from './components/Navigation';
 import { AdminLogin } from './components/AdminLogin';
+import { AdminDashboard } from './components/AdminDashboard';
 import { useImageClassification } from './hooks/useImageClassification';
 import { PredictionResult } from './types/food';
 
@@ -14,7 +15,17 @@ function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [predictions, setPredictions] = useState<PredictionResult[]>([]);
   const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'dataset' | 'admin'>('home');
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(!!localStorage.getItem('adminToken'));
   const { isLoading: modelLoading, isClassifying, modelLoadProgress, classifyImage } = useImageClassification();
+
+  const handleLoginSuccess = () => {
+    setIsAdminLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setIsAdminLoggedIn(false);
+  };
 
   const handleImageCaptured = async (imageDataUrl: string) => {
     // Validate image data
@@ -46,7 +57,11 @@ function App() {
       case 'dataset':
         return <DatasetInfo />;
       case 'admin':
-        return <AdminLogin />;
+        return isAdminLoggedIn ? (
+          <AdminDashboard onLogout={handleLogout} />
+        ) : (
+          <AdminLogin onLogin={handleLoginSuccess} />
+        );
       default:
         return renderHomePage();
     }
