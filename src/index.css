@@ -2,25 +2,46 @@
   --bs-font-sans-serif: 'Poppins', sans-serif;
   --bs-body-font-family: 'Poppins', sans-serif;
 
-  /* Light Theme Variables */
-  --bg-gradient-start: #fdfbfb;
-  --bg-gradient-end: #ebedee;
+  /* Comfort Palette - Light Mode */
+  --bg-gradient-start: #f8fafc;
+  /* Slate-50 */
+  --bg-gradient-end: #e2e8f0;
+  /* Slate-200 */
   --card-bg: #ffffff;
-  --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-  --header-bg: rgba(33, 37, 41, 0.85);
-  --text-primary: #2c3e50;
-  --text-secondary: #6c757d;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --text-primary: #1e293b;
+  /* Slate-800 */
+  --text-secondary: #64748b;
+  /* Slate-500 */
+  --feature-bg: rgba(255, 255, 255, 0.6);
+  --nav-text: #334155;
+  /* Slate-700 */
+  --border-color: #cbd5e1;
+  /* Slate-300 */
 }
 
 [data-bs-theme="dark"] {
-  /* Dark Theme Variables */
-  --bg-gradient-start: #212529;
-  --bg-gradient-end: #000000;
-  --card-bg: #2b3035;
-  --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-  --header-bg: rgba(0, 0, 0, 0.5);
-  --text-primary: #f8f9fa;
-  --text-secondary: #adb5bd;
+  /* Comfort Palette - Dark Mode */
+  --bg-gradient-start: #0f172a;
+  /* Slate-900 */
+  --bg-gradient-end: #1e293b;
+  /* Slate-800 */
+  --card-bg: #1e293b;
+  /* Slate-800 */
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --header-bg: rgba(15, 23, 42, 0.85);
+  /* Slate-900 with opacity */
+  --text-primary: #f1f5f9;
+  /* Slate-100 */
+  --text-secondary: #94a3b8;
+  /* Slate-400 */
+  --feature-bg: rgba(30, 41, 59, 0.6);
+  /* Slate-800 with opacity */
+  --nav-text: #e2e8f0;
+  /* Slate-200 */
+  --border-color: #334155;
+  /* Slate-700 */
 }
 
 body {
@@ -102,16 +123,17 @@ body {
 }
 
 /* Adaptive Glassmorphism */
+/* Adaptive Glassmorphism */
 .bg-glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--feature-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--border-color);
 }
 
 [data-bs-theme="dark"] .bg-glass {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--feature-bg);
+  border: 1px solid var(--border-color);
 }
 
 .text-adaptive {

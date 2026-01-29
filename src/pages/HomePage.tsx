@@ -99,7 +99,7 @@ export const HomePage: React.FC = () => {
                                         { icon: "🍛", title: "9 Classes", desc: "Detects popular Padang dishes" }
                                     ].map((feature, idx) => (
                                         <div key={idx} className="col-md-4 col-sm-6" style={{ maxWidth: '300px' }}>
-                                            <div className="p-3 rounded-4 bg-glass text-center h-100 hover-bg-opacity-10 transition-all cursor-default shadow-sm border-0">
+                                            <div className="p-3 rounded-4 bg-glass text-center h-100 hover-shadow transition-all cursor-default relative overflow-hidden">
                                                 <div className="fs-2 mb-2">{feature.icon}</div>
                                                 <h6 className="fw-bold mb-1 text-adaptive">{feature.title}</h6>
                                                 <p className="text-secondary small mb-0">{feature.desc}</p>

@@ -24,7 +24,10 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
     };
 
     return (
-        <header className="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 backdrop-blur sticky-top shadow-sm py-3 transition-all">
+        <header
+            className="navbar navbar-expand-lg sticky-top shadow-sm py-3 transition-all backdrop-blur"
+            style={{ backgroundColor: 'var(--header-bg)', borderBottom: '1px solid var(--border-color)' }}
+        >
             <div className="container">
                 {/* Brand */}
                 <div className="d-flex align-items-center cursor-pointer" onClick={() => handleNavigate('/')}>
@@ -32,10 +35,10 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                         <ChefHat className="text-white" size={24} />
                     </div>
                     <div>
-                        <h1 className="h4 fw-bold text-white mb-0">
+                        <h1 className="h4 fw-bold mb-0" style={{ color: 'var(--text-primary)' }}>
                             Padang Food Recognition
                         </h1>
-                        <p className="text-white-50 small mb-0 d-none d-sm-block">Advanced AI-powered food identification system</p>
+                        <p className="small mb-0 d-none d-sm-block" style={{ color: 'var(--text-secondary)' }}>Advanced AI-powered food identification system</p>
                     </div>
                 </div>
 
@@ -46,7 +49,10 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle navigation"
                 >
-                    {isOpen ? <X size={24} className="text-white" /> : <Menu size={24} className="text-white" />}
+                    {/* Adaptive Icon Color */}
+                    <span style={{ color: 'var(--text-primary)' }}>
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </span>
                 </button>
 
                 {/* Collapsible Content */}
@@ -62,8 +68,9 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage }) => {
                                         onClick={() => handleNavigate(item.path)}
                                         className={`
                       nav-link btn btn-link text-start text-decoration-none d-flex align-items-center gap-2 px-3 py-2 rounded-pill transition-all w-100
-                      ${isActive ? 'bg-white bg-opacity-10 text-white fw-medium' : 'text-white-50 hover-text-white'}
+                      ${isActive ? 'bg-primary text-white fw-medium shadow-sm' : 'hover-bg-opacity-10'}
                     `}
+                                        style={!isActive ? { color: 'var(--nav-text)' } : {}}
                                     >
                                         <Icon size={18} />
                                         {item.label}
