@@ -6,13 +6,14 @@ import { PredictionResults } from './components/PredictionResults';
 import { DatasetInfo } from './components/DatasetInfo';
 import { Documentation } from './components/Documentation';
 import { Navigation } from './components/Navigation';
+import { AdminLogin } from './components/AdminLogin';
 import { useImageClassification } from './hooks/useImageClassification';
 import { PredictionResult } from './types/food';
 
 function App() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [predictions, setPredictions] = useState<PredictionResult[]>([]);
-  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'dataset'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'docs' | 'dataset' | 'admin'>('home');
   const { isLoading: modelLoading, isClassifying, modelLoadProgress, classifyImage } = useImageClassification();
 
   const handleImageCaptured = async (imageDataUrl: string) => {
@@ -44,6 +45,8 @@ function App() {
         return <Documentation />;
       case 'dataset':
         return <DatasetInfo />;
+      case 'admin':
+        return <AdminLogin />;
       default:
         return renderHomePage();
     }

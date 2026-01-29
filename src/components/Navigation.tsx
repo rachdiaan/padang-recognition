@@ -3,8 +3,8 @@ import { ChefHat, Camera, FileText, Database, Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface NavigationProps {
-    currentPage: 'home' | 'docs' | 'dataset';
-    onPageChange: (page: 'home' | 'docs' | 'dataset') => void;
+    currentPage: 'home' | 'docs' | 'dataset' | 'admin';
+    onPageChange: (page: 'home' | 'docs' | 'dataset' | 'admin') => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChange }) => {
@@ -14,6 +14,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChang
         { id: 'home' as const, label: 'Camera', icon: Camera },
         { id: 'docs' as const, label: 'Documentation', icon: FileText },
         { id: 'dataset' as const, label: 'Dataset', icon: Database },
+        { id: 'admin' as const, label: 'Admin', icon: Lock },
     ];
 
     return (
@@ -46,7 +47,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onPageChang
                 <div className={`collapse navbar-collapse ${isOpen ? 'show mt-3' : ''}`}>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-2">
                         {navItems.map((item) => {
-                            const Icon = item.icon;
+                            const Icon = item.icon as any;
                             const isActive = currentPage === item.id;
 
                             return (
