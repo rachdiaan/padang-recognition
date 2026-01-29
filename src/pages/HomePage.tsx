@@ -35,99 +35,95 @@ export const HomePage: React.FC = () => {
     };
 
     return (
-        <>
+        <div className="min-vh-100 d-flex flex-column">
+            {/* Model Loading Overlay - Modernized */}
             {modelLoading && (
-                <div className="card mb-4 bg-dark text-white border-secondary">
-                    <div className="card-body">
-                        <div className="d-flex align-items-center mb-3">
-                            <div className="position-relative me-3">
-                                <Brain className="text-info" size={32} />
+                <div className="position-fixed top-0 start-0 w-100 h-100 z-50 d-flex align-items-center justify-content-center bg-dark bg-opacity-90 backdrop-blur-md">
+                    <div className="card bg-black border-secondary text-white shadow-2xl" style={{ maxWidth: '400px', width: '90%' }}>
+                        <div className="card-body p-5 text-center">
+                            <div className="mb-4 position-relative d-inline-block">
+                                <div className="spinner-border text-info" role="status" style={{ width: '4rem', height: '4rem' }}></div>
+                                <div className="position-absolute top-50 start-50 translate-middle">
+                                    <Brain className="text-white" size={24} />
+                                </div>
                             </div>
-                            <div className="flex-grow-1">
-                                <p className="fw-bold fs-5 mb-0">🧠 Loading MobileNet AI Model...</p>
-                                <p className="text-light small mb-0">Preparing TensorFlow.js for image recognition</p>
+                            <h4 className="fw-bold mb-2">Initializing AI</h4>
+                            <p className="text-secondary mb-4">Loading Padang Food Model v2.0...</p>
+                            <div className="progress bg-secondary bg-opacity-25 rounded-pill" style={{ height: '8px' }}>
+                                <div
+                                    className="progress-bar bg-gradient-primary-info rounded-pill transition-all duration-300"
+                                    role="progressbar"
+                                    style={{ width: `${modelLoadProgress}%` }}
+                                />
                             </div>
-                            <div className="text-info fw-bold fs-5">{modelLoadProgress}%</div>
-                        </div>
-                        <div className="progress" style={{ height: '12px' }}>
-                            <div
-                                className="progress-bar bg-gradient-primary-info"
-                                role="progressbar"
-                                style={{ width: `${modelLoadProgress}%` }}
-                            />
-                        </div>
-                        <div className="d-flex justify-content-between small text-secondary mt-2">
-                            <span>Initializing WebGL</span>
-                            <span>Loading weights</span>
-                            <span>Ready</span>
                         </div>
                     </div>
                 </div>
             )}
 
-            <div className="row g-4 justify-content-center">
-                {/* Left Column - Camera */}
-                <div className={`transition-all duration-500 ${capturedImage ? 'col-lg-6' : 'col-lg-8 col-xl-6'}`}>
-                    {!capturedImage ? (
-                        <div className="d-flex flex-column gap-4">
-                            {/* Hero Text when idle */}
-                            <div className="text-center mb-2">
-                                <h1 className="display-5 fw-bold mb-2">Padang Food AI</h1>
-                                <p className="lead text-secondary">Instantly identify authentic Padang dishes with a single photo</p>
-                            </div>
+            {/* Main Content Area */}
+            <div className="flex-grow-1 d-flex align-items-center">
+                <div className="container-fluid px-lg-5">
+                    <div className={`row g-4 align-items-center justify-content-center transition-all duration-700 ${capturedImage ? 'pb-5' : 'py-5'}`}>
 
-                            <CameraCapture onImageCaptured={handleImageCaptured} />
+                        {/* Left Column: Camera / Input */}
+                        <div className={`transition-all duration-700 ${capturedImage ? 'col-lg-5 order-lg-1' : 'col-lg-8 col-xl-7'}`}>
 
-                            {/* How It Works - Compact Horizontal Version */}
-                            <div className="card shadow-sm border-0 bg-white bg-opacity-50 backdrop-blur">
-                                <div className="card-body p-4">
-                                    <h6 className="fw-bold text-uppercase text-secondary mb-3 small letter-spacing-1">How it works</h6>
-                                    <div className="row g-3 text-center">
-                                        <div className="col-4">
-                                            <div className="mb-2">
-                                                <div className="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle p-3">
-                                                    <span className="fw-bold">1</span>
-                                                </div>
-                                            </div>
-                                            <small className="fw-bold d-block">Start Camera</small>
-                                        </div>
-                                        <div className="col-4">
-                                            <div className="mb-2">
-                                                <div className="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle p-3">
-                                                    <span className="fw-bold">2</span>
-                                                </div>
-                                            </div>
-                                            <small className="fw-bold d-block">Capture Dish</small>
-                                        </div>
-                                        <div className="col-4">
-                                            <div className="mb-2">
-                                                <div className="d-inline-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle p-3">
-                                                    <span className="fw-bold">3</span>
-                                                </div>
-                                            </div>
-                                            <small className="fw-bold d-block">Get Results</small>
-                                        </div>
-                                    </div>
+                            {!capturedImage && (
+                                <div className="text-center mb-5 animation-fade-in-up">
+                                    <h1 className="display-4 fw-800 text-white mb-3 letter-spacing-tight text-shadow-sm">
+                                        Padang <span className="text-gradient-primary">Cuisine</span> Recognition
+                                    </h1>
+                                    <p className="lead text-white-50 mx-auto" style={{ maxWidth: '600px' }}>
+                                        Experience the power of AI. Instantly identify authentic Padang dishes with professional-grade accuracy directly from your browser.
+                                    </p>
+                                </div>
+                            )}
+
+                            <div className={`card border-0 bg-dark bg-opacity-50 backdrop-blur-lg shadow-2xl rounded-5 overflow-hidden transition-all duration-500 hover-transform-sm ${!capturedImage ? 'mx-auto' : ''}`} style={{ maxWidth: capturedImage ? '100%' : '800px' }}>
+                                <div className="card-body p-2 p-md-3">
+                                    {capturedImage ? (
+                                        <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
+                                    ) : (
+                                        <CameraCapture onImageCaptured={handleImageCaptured} />
+                                    )}
                                 </div>
                             </div>
-                        </div>
-                    ) : (
-                        <div className="h-100">
-                            <ImagePreview imageDataUrl={capturedImage} onClose={handleCloseImage} />
-                        </div>
-                    )}
-                </div>
 
-                {/* Right Column - Results (Only visible when image captured) */}
-                {capturedImage && (
-                    <div className="col-lg-6 animation-slide-in-right">
-                        <PredictionResults
-                            predictions={predictions}
-                            isLoading={isClassifying}
-                        />
+                            {/* Modern Features Grid (Only visible when idle) */}
+                            {!capturedImage && (
+                                <div className="row g-4 mt-4 justify-content-center animation-fade-in-up delay-200">
+                                    {[
+                                        { icon: "⚡", title: "Real-time", desc: "Instant analysis using TensorFlow.js" },
+                                        { icon: "🔒", title: "Private", desc: "Images never leave your device" },
+                                        { icon: "🍛", title: "9 Classes", desc: "Detects popular Padang dishes" }
+                                    ].map((feature, idx) => (
+                                        <div key={idx} className="col-md-4 col-sm-6" style={{ maxWidth: '300px' }}>
+                                            <div className="p-3 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10 text-center h-100 hover-bg-opacity-10 transition-all cursor-default">
+                                                <div className="fs-2 mb-2">{feature.icon}</div>
+                                                <h6 className="fw-bold text-white mb-1">{feature.title}</h6>
+                                                <p className="text-white-50 small mb-0">{feature.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Right Column: Results (Appears on side) */}
+                        {capturedImage && (
+                            <div className="col-lg-5 col-xl-4 order-lg-2 animation-slide-in-right">
+                                <div className="sticky-top" style={{ top: '100px', zIndex: 10 }}>
+                                    <PredictionResults
+                                        predictions={predictions}
+                                        isLoading={isClassifying}
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
             </div>
-        </>
+        </div>
     );
 };

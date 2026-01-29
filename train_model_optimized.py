@@ -77,17 +77,18 @@ def create_model(num_classes):
     return model, base_model
 
 def prepare_data():
-    # Advanced Augmentation
+    # Advanced Augmentation - Optimized for Color Invariance (Red/Green Chili handling)
     train_datagen = ImageDataGenerator(
         rescale=1./255,
-        rotation_range=40,      # Increased
-        width_shift_range=0.3,  # Increased
-        height_shift_range=0.3, # Increased
-        shear_range=0.2,
-        zoom_range=0.3,         # Increased
-        brightness_range=[0.7, 1.3], # Added brightness var
-        channel_shift_range=20.0,    # Added color var
+        rotation_range=45,
+        width_shift_range=0.25,
+        height_shift_range=0.25,
+        shear_range=0.25,
+        zoom_range=0.35,
+        brightness_range=[0.6, 1.4], # Wider brightness to handle lighting
+        channel_shift_range=40.0,    # High shift to reduce color bias (Green vs Red chili)
         horizontal_flip=True,
+        vertical_flip=False,         # Food usually has gravity
         fill_mode='nearest',
         validation_split=0.2
     )
@@ -115,7 +116,7 @@ def prepare_data():
     return train_generator, val_generator
 
 def train_model():
-    print("🚀 STARTING OPTIMIZED TRAINING...")
+    print("🚀 STARTING OPTIMIZED TRAINING (V3 - Color Invariant)...")
     
     train_gen, val_gen = prepare_data()
     num_classes = len(train_gen.class_indices)
@@ -126,13 +127,13 @@ def train_model():
     print("\nPhase 1: Training Head (AdamW + Label Smoothing)")
     model.compile(
         optimizer=tf.keras.optimizers.AdamW(learning_rate=0.001, weight_decay=1e-4),
-        loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1),
+        loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.15), # Increased smoothing
         metrics=['accuracy']
     )
     
     callbacks = [
-        EarlyStopping(monitor='val_accuracy', patience=8, restore_best_weights=True, verbose=1),
-        ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=1e-7, verbose=1),
+        EarlyStopping(monitor='val_accuracy', patience=10, restore_best_weights=True, verbose=1),
+        ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=4, min_lr=1e-7, verbose=1),
         ModelCheckpoint(os.path.join(MODEL_OUTPUT_DIR, 'best_model.keras'), monitor='val_accuracy', save_best_only=True, verbose=1)
     ]
     
@@ -144,16 +145,16 @@ def train_model():
     )
     
     # 2. Deep Fine-tuning
-    print("\nPhase 2: Deep Fine-tuning (Unfreezing last 60 layers)")
+    print("\nPhase 2: Deep Fine-tuning (Unfreezing last 80 layers)")
     base_model.trainable = True
     
-    # Unfreeze top layers
-    for layer in base_model.layers[:-60]: # Increased depth
+    # Unfreeze deeper
+    for layer in base_model.layers[:-80]: 
         layer.trainable = False
         
     model.compile(
-        optimizer=tf.keras.optimizers.AdamW(learning_rate=5e-5, weight_decay=1e-5), # Lower LR
-        loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1),
+        optimizer=tf.keras.optimizers.AdamW(learning_rate=3e-5, weight_decay=1e-5), # Slower learning
+        loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.15),
         metrics=['accuracy']
     )
     
